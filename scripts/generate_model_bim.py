@@ -1,0 +1,228 @@
+import json
+import os
+
+base_dir = r"E:\Managed Projects\tugas-spk"
+csv_sales = os.path.join(base_dir, "data_csv", "Fact_Penjualan.csv").replace("\\", "/")
+csv_waktu = os.path.join(base_dir, "data_csv", "Dim_Waktu.csv").replace("\\", "/")
+csv_produk = os.path.join(base_dir, "data_csv", "Dim_Produk.csv").replace("\\", "/")
+csv_pelanggan = os.path.join(base_dir, "data_csv", "Dim_Pelanggan.csv").replace("\\", "/")
+csv_lahan = os.path.join(base_dir, "data_csv", "Dim_Lahan.csv").replace("\\", "/")
+
+model_bim = {
+    "name": "Model",
+    "compatibilityLevel": 1600,
+    "model": {
+        "culture": "id-ID",
+        "dataAccessOptions": {
+            "legacyRedirects": True,
+            "returnErrorValuesAsNull": True
+        },
+        "defaultPowerBIDataSourceVersion": "powerBI_V3",
+        "relationships": [
+            {
+                "name": "rel_fact_waktu",
+                "fromTable": "Fact_Penjualan",
+                "fromColumn": "DateKey",
+                "toTable": "Dim_Waktu",
+                "toColumn": "DateKey"
+            },
+            {
+                "name": "rel_fact_produk",
+                "fromTable": "Fact_Penjualan",
+                "fromColumn": "ProductKey",
+                "toTable": "Dim_Produk",
+                "toColumn": "ProductKey"
+            },
+            {
+                "name": "rel_fact_pelanggan",
+                "fromTable": "Fact_Penjualan",
+                "fromColumn": "CustomerKey",
+                "toTable": "Dim_Pelanggan",
+                "toColumn": "CustomerKey"
+            },
+            {
+                "name": "rel_fact_lahan",
+                "fromTable": "Fact_Penjualan",
+                "fromColumn": "LahanKey",
+                "toTable": "Dim_Lahan",
+                "toColumn": "LahanKey"
+            }
+        ],
+        "tables": [
+            {
+                "name": "Dim_Waktu",
+                "columns": [
+                    {"name": "DateKey", "dataType": "int64", "sourceColumn": "DateKey"},
+                    {"name": "Tanggal", "dataType": "dateTime", "formatString": "yyyy-mm-dd", "sourceColumn": "Tanggal"},
+                    {"name": "Hari", "dataType": "string", "sourceColumn": "Hari"},
+                    {"name": "MingguKe", "dataType": "int64", "sourceColumn": "MingguKe"},
+                    {"name": "LabelMinggu", "dataType": "string", "sortByColumn": "MingguKe", "sourceColumn": "LabelMinggu"},
+                    {"name": "BulanAngka", "dataType": "int64", "sourceColumn": "BulanAngka"},
+                    {"name": "NamaBulan", "dataType": "string", "sortByColumn": "BulanAngka", "sourceColumn": "NamaBulan"},
+                    {"name": "BulanTahun", "dataType": "string", "sourceColumn": "BulanTahun"},
+                    {"name": "Tahun", "dataType": "int64", "sourceColumn": "Tahun"}
+                ],
+                "partitions": [
+                    {
+                        "name": "Dim_Waktu",
+                        "mode": "import",
+                        "source": {
+                            "type": "m",
+                            "expression": [
+                                "let",
+                                f'    Source = Csv.Document(File.Contents("{csv_waktu}"),[Delimiter=",", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),',
+                                '    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),',
+                                '    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DateKey", Int64.Type}, {"Tanggal", type date}, {"Hari", type text}, {"MingguKe", Int64.Type}, {"LabelMinggu", type text}, {"BulanAngka", Int64.Type}, {"NamaBulan", type text}, {"BulanTahun", type text}, {"Tahun", Int64.Type}})',
+                                "in",
+                                '    #"Changed Type"'
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Dim_Produk",
+                "columns": [
+                    {"name": "ProductKey", "dataType": "string", "sourceColumn": "ProductKey"},
+                    {"name": "Komoditas", "dataType": "string", "sourceColumn": "Komoditas"},
+                    {"name": "Grade", "dataType": "string", "sourceColumn": "Grade"},
+                    {"name": "SatuanDefault", "dataType": "string", "sourceColumn": "SatuanDefault"}
+                ],
+                "partitions": [
+                    {
+                        "name": "Dim_Produk",
+                        "mode": "import",
+                        "source": {
+                            "type": "m",
+                            "expression": [
+                                "let",
+                                f'    Source = Csv.Document(File.Contents("{csv_produk}"),[Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),',
+                                '    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),',
+                                '    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ProductKey", type text}, {"Komoditas", type text}, {"Grade", type text}, {"SatuanDefault", type text}})',
+                                "in",
+                                '    #"Changed Type"'
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Dim_Pelanggan",
+                "columns": [
+                    {"name": "CustomerKey", "dataType": "string", "sourceColumn": "CustomerKey"},
+                    {"name": "NamaPembeli", "dataType": "string", "sourceColumn": "NamaPembeli"}
+                ],
+                "partitions": [
+                    {
+                        "name": "Dim_Pelanggan",
+                        "mode": "import",
+                        "source": {
+                            "type": "m",
+                            "expression": [
+                                "let",
+                                f'    Source = Csv.Document(File.Contents("{csv_pelanggan}"),[Delimiter=",", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),',
+                                '    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),',
+                                '    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"CustomerKey", type text}, {"NamaPembeli", type text}})',
+                                "in",
+                                '    #"Changed Type"'
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Dim_Lahan",
+                "columns": [
+                    {"name": "LahanKey", "dataType": "string", "sourceColumn": "LahanKey"},
+                    {"name": "KodeLahan", "dataType": "string", "sourceColumn": "KodeLahan"}
+                ],
+                "partitions": [
+                    {
+                        "name": "Dim_Lahan",
+                        "mode": "import",
+                        "source": {
+                            "type": "m",
+                            "expression": [
+                                "let",
+                                f'    Source = Csv.Document(File.Contents("{csv_lahan}"),[Delimiter=",", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),',
+                                '    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),',
+                                '    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"LahanKey", type text}, {"KodeLahan", type text}})',
+                                "in",
+                                '    #"Changed Type"'
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Fact_Penjualan",
+                "columns": [
+                    {"name": "TransactionID", "dataType": "int64", "sourceColumn": "TransactionID"},
+                    {"name": "DateKey", "dataType": "int64", "sourceColumn": "DateKey"},
+                    {"name": "ProductKey", "dataType": "string", "sourceColumn": "ProductKey"},
+                    {"name": "CustomerKey", "dataType": "string", "sourceColumn": "CustomerKey"},
+                    {"name": "LahanKey", "dataType": "string", "sourceColumn": "LahanKey"},
+                    {"name": "Volume", "dataType": "double", "sourceColumn": "Volume"},
+                    {"name": "Satuan", "dataType": "string", "sourceColumn": "Satuan"},
+                    {"name": "HargaSatuan", "dataType": "double", "formatString": '"Rp"#,0', "sourceColumn": "HargaSatuan"},
+                    {"name": "TotalPendapatan", "dataType": "double", "formatString": '"Rp"#,0', "sourceColumn": "TotalPendapatan"}
+                ],
+                "measures": [
+                    {
+                        "name": "Total Pendapatan",
+                        "expression": "SUM(Fact_Penjualan[TotalPendapatan])",
+                        "formatString": '"Rp"#,0'
+                    },
+                    {
+                        "name": "Total Volume",
+                        "expression": "SUM(Fact_Penjualan[Volume])",
+                        "formatString": "#,0"
+                    },
+                    {
+                        "name": "Total Transaksi",
+                        "expression": "COUNTROWS(Fact_Penjualan)",
+                        "formatString": "#,0"
+                    },
+                    {
+                        "name": "Rata-rata Pendapatan per Transaksi",
+                        "expression": "AVERAGE(Fact_Penjualan[TotalPendapatan])",
+                        "formatString": '"Rp"#,0'
+                    },
+                    {
+                        "name": "Total Pembeli Unik",
+                        "expression": "DISTINCTCOUNT(Fact_Penjualan[CustomerKey])",
+                        "formatString": "#,0"
+                    }
+                ],
+                "partitions": [
+                    {
+                        "name": "Fact_Penjualan",
+                        "mode": "import",
+                        "source": {
+                            "type": "m",
+                            "expression": [
+                                "let",
+                                f'    Source = Csv.Document(File.Contents("{csv_sales}"),[Delimiter=",", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),',
+                                '    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),',
+                                '    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"TransactionID", Int64.Type}, {"DateKey", Int64.Type}, {"ProductKey", type text}, {"CustomerKey", type text}, {"LahanKey", type text}, {"Volume", type number}, {"Satuan", type text}, {"HargaSatuan", type number}, {"TotalPendapatan", type number}})',
+                                "in",
+                                '    #"Changed Type"'
+                            ]
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+target_bim = os.path.join(base_dir, "BBPP_Ketindan_DSS.SemanticModel", "model.bim")
+with open(target_bim, "w", encoding="utf-8") as f:
+    json.dump(model_bim, f, indent=2)
+
+# Also ensure definition.pbism is version 1.0 to match model.bim
+target_pbism = os.path.join(base_dir, "BBPP_Ketindan_DSS.SemanticModel", "definition.pbism")
+with open(target_pbism, "w", encoding="utf-8") as f:
+    json.dump({"version": "1.0", "settings": {}}, f, indent=2)
+
+print(f"Successfully generated model.bim and aligned definition.pbism to version 1.0!")
