@@ -49,8 +49,7 @@
           },
           {
             "name": "Tanggal",
-            "dataType": "dateTime",
-            "formatString": "yyyy-mm-dd",
+            "dataType": "string",
             "sourceColumn": "Tanggal"
           },
           {
@@ -101,7 +100,7 @@
                 "let",
                 "    Source = Csv.Document(File.Contents(\"E:/Managed Projects/tugas-spk/data_csv/Dim_Waktu.csv\"),[Delimiter=\",\", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"DateKey\", Int64.Type}, {\"Tanggal\", type date}, {\"Hari\", type text}, {\"MingguKe\", Int64.Type}, {\"LabelMinggu\", type text}, {\"BulanAngka\", Int64.Type}, {\"NamaBulan\", type text}, {\"BulanTahun\", type text}, {\"Tahun\", Int64.Type}})",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"DateKey\", Int64.Type}, {\"Tanggal\", type text}, {\"Hari\", type text}, {\"MingguKe\", Int64.Type}, {\"LabelMinggu\", type text}, {\"BulanAngka\", Int64.Type}, {\"NamaBulan\", type text}, {\"BulanTahun\", type text}, {\"Tahun\", Int64.Type}})",
                 "in",
                 "    #\"Changed Type\""
               ]
