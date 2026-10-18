@@ -1,0 +1,145 @@
+# KUMPULAN FORMULA DAX UNTUK POWER BI DASHBOARD
+# Balai Besar Pelatihan Pertanian (BBPP) Ketindan - Kebun Produksi
+# Data Warehouse: Star Schema (Fact_Penjualan, Dim_Waktu, Dim_Produk, Dim_Pelanggan, Dim_Lahan)
+
+================================================================================
+1. CORE MEASURES (UKURAN UTAMA)
+================================================================================
+
+Total Pendapatan = 
+SUM(Fact_Penjualan[TotalPendapatan])
+
+Total Volume Terjual = 
+SUM(Fact_Penjualan[Volume])
+
+Total Transaksi = 
+COUNTROWS(Fact_Penjualan)
+
+Rata-rata Pendapatan per Transaksi = 
+AVERAGE(Fact_Penjualan[TotalPendapatan])
+
+Total Pelanggan Unik = 
+DISTINCTCOUNT(Fact_Penjualan[CustomerKey])
+
+Harga Satuan Rata-rata = 
+DIVIDE([Total Pendapatan], [Total Volume Terjual], 0)
+
+================================================================================
+2. TIME INTELLIGENCE & PERIOD ANALYSIS (KPI 1 & KPI 2)
+================================================================================
+
+# Pendapatan Bulan Ini (Agustus / September)
+Pendapatan Agustus 2026 = 
+CALCULATE(
+    [Total Pendapatan],
+    Dim_Waktu[NamaBulan] = "Agustus"
+)
+
+Pendapatan September 2026 = 
+CALCULATE(
+    [Total Pendapatan],
+    Dim_Waktu[NamaBulan] = "September"
+)
+
+# Pertumbuhan Bulanan (MoM Growth %)
+Pertumbuhan Pendapatan MoM % = 
+VAR RevAgt = [Pendapatan Agustus 2026]
+VAR RevSep = [Pendapatan September 2026]
+RETURN
+DIVIDE(RevSep - RevAgt, RevAgt, 0)
+
+# Rata-rata Pendapatan Mingguan
+Rata-rata Pendapatan Mingguan = 
+AVERAGEX(
+    VALUES(Dim_Waktu[LabelMinggu]),
+    [Total Pendapatan]
+)
+
+================================================================================
+3. RANKING & TOP N METRICS (KPI 3, KPI 4, KPI 5)
+================================================================================
+
+# Ranking Produk Berdasarkan Pendapatan (KPI 3)
+Rank Produk by Revenue = 
+RANKX(
+    ALL(Dim_Produk[Komoditas]),
+    [Total Pendapatan],
+    ,
+    DESC,
+    Dense
+)
+
+# Ranking Produk Berdasarkan Volume Terjual (KPI 4)
+Rank Produk by Volume = 
+RANKX(
+    ALL(Dim_Produk[Komoditas]),
+    [Total Volume Terjual],
+    ,
+    DESC,
+    Dense
+)
+
+# Ranking Pelanggan Berdasarkan Belanja Terbanyak (KPI 5)
+Rank Pembeli by Belanja = 
+RANKX(
+    ALL(Dim_Pelanggan[NamaPembeli]),
+    [Total Pendapatan],
+    ,
+    DESC,
+    Dense
+)
+
+# Persentase Kontribusi Produk terhadap Total Pendapatan (Pareto Analysis)
+% Kontribusi Pendapatan Produk = 
+DIVIDE(
+    [Total Pendapatan],
+    CALCULATE([Total Pendapatan], ALL(Dim_Produk)),
+    0
+)
+
+# Persentase Kontribusi Lahan terhadap Total Pendapatan
+% Kontribusi Lahan = 
+DIVIDE(
+    [Total Pendapatan],
+    CALCULATE([Total Pendapatan], ALL(Dim_Lahan)),
+    0
+)
+
+================================================================================
+4. REKOMENDASI TAMPILAN VISUALISASI DASHBOARD DI POWER BI
+================================================================================
+
+Layout Kanvas (16:9 - 1280 x 720 px):
+
+[HEADER BANNER]
+- Judul: "EXECUTIVE DSS DASHBOARD - KEBUN PRODUKSI BBPP KETINDAN"
+- Subjudul: "Analisis Kinerja Penjualan Komoditas Pertanian Periode Agustus - September 2026"
+- Slicer Panel (Filter Atas / Kiri): Slicer Bulan (Agustus/September), Slicer Komoditas, Slicer Kode Lahan
+
+[BARIS 1: KPI CARDS]
+- Card 1: [Total Pendapatan] -> Format Currency: Rp 29.818.920
+- Card 2: [Total Volume Terjual] -> Format Number: 2.378 Unit/Kg
+- Card 3: [Total Transaksi] -> Format Number: 549 Transaksi
+- Card 4: [Total Pelanggan Unik] -> Format Number: 214 Pembeli
+- Card 5: [Pertumbuhan Pendapatan MoM %] -> Format Percentage: +81,39% (Kenaikan dari Agt ke Sep)
+
+[BARIS 2: ANALISIS TREN WAKTU & SPASIAL (LAHAN)]
+- Visual 1 (Line & Clustered Column Chart):
+  * X-Axis: Dim_Waktu[LabelMinggu] (Minggu-32 s.d. Minggu-39)
+  * Column Y-Axis: [Total Pendapatan]
+  * Line Y-Axis: [Total Transaksi]
+  * Menjawab KPI 1: Tren pendapatan mingguan memuncak di Minggu ke-36 (panen raya melon).
+- Visual 2 (Donut Chart / Treemap):
+  * Legend/Group: Dim_Lahan[KodeLahan]
+  * Values: [Total Pendapatan]
+  * Analisis kontribusi lahan (PROGEV, PP, SGH, P3K, UMUM).
+
+[BARIS 3: ANALISIS PRODUK & PELANGGAN]
+- Visual 3 (Clustered Bar Chart - Horizontal):
+  * Y-Axis: Dim_Produk[Komoditas] (Top 7)
+  * X-Axis: [Total Pendapatan] (Primary) & [Total Volume Terjual]
+  * Menjawab KPI 3 & KPI 4: Komparasi pendapatan terbesar (Melon Sweet Lavender) vs volume terbanyak.
+- Visual 4 (Table / Clustered Bar Chart):
+  * Y-Axis: Dim_Pelanggan[NamaPembeli] (Top 10)
+  * X-Axis: [Total Pendapatan]
+  * Menjawab KPI 5: Pelanggan belanja terbanyak (B Rara Surabaya & P Joni Batu memimpin).

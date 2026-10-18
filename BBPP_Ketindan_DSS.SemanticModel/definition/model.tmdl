@@ -1,0 +1,12 @@
+model Model
+	culture: id-ID
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: id-ID
+
+	annotation PBI_QueryOrder = ["Dim_Waktu","Dim_Produk","Dim_Pelanggan","Dim_Lahan","Fact_Penjualan"]
+
+	ref table Dim_Waktu
+	ref table Dim_Produk
+	ref table Dim_Pelanggan
+	ref table Dim_Lahan
+	ref table Fact_Penjualan

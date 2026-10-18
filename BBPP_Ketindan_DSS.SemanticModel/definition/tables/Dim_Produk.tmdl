@@ -1,0 +1,32 @@
+table Dim_Produk
+	lineageTag: 81befaff-02b4-4ab5-91ae-039ccc705728
+
+	column ProductKey
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+	column Komoditas
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Komoditas
+
+	column Grade
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Grade
+
+	column SatuanDefault
+		dataType: string
+		summarizeBy: none
+		sourceColumn: SatuanDefault
+
+	partition Dim_Produk = m
+		mode: import
+		source =
+			let
+				Source = Csv.Document(File.Contents("E:/Managed Projects/tugas-spk/data_csv/Dim_Produk.csv"),[Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ProductKey", type text}, {"Komoditas", type text}, {"Grade", type text}, {"SatuanDefault", type text}})
+			in
+				#"Changed Type"

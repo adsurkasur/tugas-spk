@@ -1,0 +1,9 @@
+{
+  "version": "1.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../BBPP_Ketindan_DSS.SemanticModel"
+    },
+    "byConnection": null
+  }
+}

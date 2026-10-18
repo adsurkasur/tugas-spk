@@ -1,0 +1,23 @@
+relationship 'debee619-4163-4e83-a224-a4bd40ab307d'
+	fromTable: Fact_Penjualan
+	fromColumn: DateKey
+	toTable: Dim_Waktu
+	toColumn: DateKey
+
+relationship '373614c1-e34d-49f1-bc8d-c2f10472af59'
+	fromTable: Fact_Penjualan
+	fromColumn: ProductKey
+	toTable: Dim_Produk
+	toColumn: ProductKey
+
+relationship '11c9e638-ea12-47b2-a3dc-0009e75b3089'
+	fromTable: Fact_Penjualan
+	fromColumn: CustomerKey
+	toTable: Dim_Pelanggan
+	toColumn: CustomerKey
+
+relationship 'e37714b2-3738-449c-8590-ee49cc688236'
+	fromTable: Fact_Penjualan
+	fromColumn: LahanKey
+	toTable: Dim_Lahan
+	toColumn: LahanKey
