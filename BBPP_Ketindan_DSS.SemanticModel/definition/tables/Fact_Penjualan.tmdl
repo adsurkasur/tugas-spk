@@ -1,79 +1,80 @@
 table Fact_Penjualan
-	lineageTag: fd355eac-bdce-4a19-a623-ecc87aca1e3f
+	lineageTag: 0ef282ee-d7ca-48c2-968d-11a16e723b2d
 
 	measure 'Total Pendapatan' = SUM(Fact_Penjualan[TotalPendapatan])
 		formatString: "Rp"#,0
-		lineageTag: 54a2ba20-bbbc-460d-a595-a466c09637cd
+		lineageTag: 2ac7e00c-77fe-4a4e-bb1e-b0db10abe4d5
 
 	measure 'Total Volume' = SUM(Fact_Penjualan[Volume])
 		formatString: #,0
-		lineageTag: 9d754e74-03b6-4bda-82c2-9e29e55953d1
+		lineageTag: 6dfa2e63-7885-4297-969b-a27dba1847fe
 
 	measure 'Total Transaksi' = COUNTROWS(Fact_Penjualan)
 		formatString: #,0
-		lineageTag: 0b6bc1e6-fa17-4afd-bb9c-a2d1f6093985
+		lineageTag: 8a1bb66c-0d71-45c4-9a16-f1da760346e7
 
 	measure 'Rata-rata Pendapatan per Transaksi' = AVERAGE(Fact_Penjualan[TotalPendapatan])
 		formatString: "Rp"#,0
-		lineageTag: 4d0c5dcf-12d6-48af-9f0e-3f59ed11e1ec
+		lineageTag: 51c77496-ae2f-426b-b85e-62f7a9ba3fee
 
 	measure 'Total Pembeli Unik' = DISTINCTCOUNT(Fact_Penjualan[CustomerKey])
 		formatString: #,0
-		lineageTag: 6e6a92b6-a87e-41b6-8d50-4fd6e5617b1d
+		lineageTag: e7223c7a-3934-4a0b-9929-6a1ada04b342
 
 	column TransactionID
 		dataType: int64
-		summarizeBy: count
+		lineageTag: dfdd2ca1-a83b-49b2-8a26-0421ee001ac7
 		sourceColumn: TransactionID
 
 	column DateKey
 		dataType: int64
-		summarizeBy: none
+		lineageTag: 7f615e5e-f7a6-4d08-aeac-3b95e89e5c0e
 		sourceColumn: DateKey
 
 	column ProductKey
 		dataType: string
-		summarizeBy: none
+		lineageTag: 798bf652-056d-47a7-82c6-9185321b0be0
 		sourceColumn: ProductKey
 
 	column CustomerKey
 		dataType: string
-		summarizeBy: none
+		lineageTag: 43b386fd-2dd8-4466-af24-8a4ee6dc6a8a
 		sourceColumn: CustomerKey
 
 	column LahanKey
 		dataType: string
-		summarizeBy: none
+		lineageTag: b101ccde-e942-4c86-9213-31fca2e907aa
 		sourceColumn: LahanKey
 
 	column Volume
 		dataType: double
-		summarizeBy: sum
+		lineageTag: 191435f3-86c1-4765-98c6-2bc9fd05b316
 		sourceColumn: Volume
 
 	column Satuan
 		dataType: string
-		summarizeBy: none
+		lineageTag: 35dfb3b3-90bf-4bda-8446-6ce956e5453d
 		sourceColumn: Satuan
 
 	column HargaSatuan
 		dataType: double
 		formatString: "Rp"#,0
-		summarizeBy: average
+		lineageTag: e907022e-da54-41a8-95c1-3ab4b6b5d0d4
 		sourceColumn: HargaSatuan
 
 	column TotalPendapatan
 		dataType: double
 		formatString: "Rp"#,0
-		summarizeBy: sum
+		lineageTag: 02fb8d05-38fe-4018-8911-f63614e08442
 		sourceColumn: TotalPendapatan
 
 	partition Fact_Penjualan = m
 		mode: import
 		source =
-			let
-				Source = Csv.Document(File.Contents("E:/Managed Projects/tugas-spk/data_csv/Fact_Penjualan.csv"),[Delimiter=",", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
-				#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"TransactionID", Int64.Type}, {"DateKey", Int64.Type}, {"ProductKey", type text}, {"CustomerKey", type text}, {"LahanKey", type text}, {"Volume", type number}, {"Satuan", type text}, {"HargaSatuan", type number}, {"TotalPendapatan", type number}})
-			in
-				#"Changed Type"
+				let
+				    Source = Csv.Document(File.Contents("E:/Managed Projects/tugas-spk/data_csv/Fact_Penjualan.csv"),[Delimiter=",", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"TransactionID", Int64.Type}, {"DateKey", Int64.Type}, {"ProductKey", type text}, {"CustomerKey", type text}, {"LahanKey", type text}, {"Volume", type number}, {"Satuan", type text}, {"HargaSatuan", type number}, {"TotalPendapatan", type number}})
+				in
+				    #"Changed Type"
+

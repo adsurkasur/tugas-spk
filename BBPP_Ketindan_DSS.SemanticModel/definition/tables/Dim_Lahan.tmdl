@@ -1,22 +1,23 @@
 table Dim_Lahan
-	lineageTag: a1c380a4-f254-4917-8f8c-b72ff91fa5b6
+	lineageTag: a9f166f8-6b87-4de9-bdee-671296a792f0
 
 	column LahanKey
 		dataType: string
-		summarizeBy: none
+		lineageTag: dc7b2afb-ddd5-4768-ae22-9ab1d151b38f
 		sourceColumn: LahanKey
 
 	column KodeLahan
 		dataType: string
-		summarizeBy: none
+		lineageTag: c9da17cd-365b-40c8-a578-21222e8fbfb2
 		sourceColumn: KodeLahan
 
 	partition Dim_Lahan = m
 		mode: import
 		source =
-			let
-				Source = Csv.Document(File.Contents("E:/Managed Projects/tugas-spk/data_csv/Dim_Lahan.csv"),[Delimiter=",", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),
-				#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"LahanKey", type text}, {"KodeLahan", type text}})
-			in
-				#"Changed Type"
+				let
+				    Source = Csv.Document(File.Contents("E:/Managed Projects/tugas-spk/data_csv/Dim_Lahan.csv"),[Delimiter=",", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"LahanKey", type text}, {"KodeLahan", type text}})
+				in
+				    #"Changed Type"
+

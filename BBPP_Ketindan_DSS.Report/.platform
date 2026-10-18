@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "BBPP_Ketindan_DSS"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "3dba4f08-ac8a-42cb-b028-50be3162c704"
+  }
+}

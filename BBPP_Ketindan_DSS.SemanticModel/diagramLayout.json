@@ -1,0 +1,87 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 622.42750383205157,
+            "y": 203.63816459544512
+          },
+          "nodeIndex": "Dim_Lahan",
+          "nodeLineageTag": "a9f166f8-6b87-4de9-bdee-671296a792f0",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 236.2807058452986,
+            "y": -50
+          },
+          "nodeIndex": "Dim_Pelanggan",
+          "nodeLineageTag": "17b13a0e-e299-4d8c-9d2a-f5b44fe01ea6",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 397.02908566358195,
+            "y": 482.847999910809
+          },
+          "nodeIndex": "Dim_Produk",
+          "nodeLineageTag": "89bba5c0-8469-4f27-9e02-9f4c92e6f47a",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 243.91799029526271
+          },
+          "nodeIndex": "Dim_Waktu",
+          "nodeLineageTag": "4c199413-b897-48ee-9c2f-014f6df9c38a",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 336.24080568145484,
+            "y": 129.74440756823503
+          },
+          "nodeIndex": "Fact_Penjualan",
+          "nodeLineageTag": "0ef282ee-d7ca-48c2-968d-11a16e723b2d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

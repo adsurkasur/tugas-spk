@@ -1,60 +1,60 @@
 table Dim_Waktu
-	lineageTag: 0f36ad70-3ab2-4cf1-a82b-c01bc9a0053e
+	lineageTag: 4c199413-b897-48ee-9c2f-014f6df9c38a
 
 	column DateKey
 		dataType: int64
-		summarizeBy: none
+		lineageTag: be902b6e-18af-47d6-b86f-9052d1bc84c5
 		sourceColumn: DateKey
 
 	column Tanggal
-		dataType: dateTime
-		formatString: yyyy-mm-dd
-		summarizeBy: none
+		dataType: string
+		lineageTag: 4d7cdc9d-534a-4e88-889f-bf78fda82f4a
 		sourceColumn: Tanggal
 
 	column Hari
 		dataType: string
-		summarizeBy: none
+		lineageTag: 4485e041-3ed7-4d36-af34-10b0d8e03097
 		sourceColumn: Hari
 
 	column MingguKe
 		dataType: int64
-		summarizeBy: none
+		lineageTag: ffcaa2ad-9389-44ae-834e-da2b87076863
 		sourceColumn: MingguKe
 
 	column LabelMinggu
 		dataType: string
-		summarizeBy: none
+		lineageTag: 7a68dccb-f330-4080-baec-aebf62ea2495
 		sourceColumn: LabelMinggu
 		sortByColumn: MingguKe
 
 	column BulanAngka
 		dataType: int64
-		summarizeBy: none
+		lineageTag: d4762605-d72c-4138-8853-c928f5c2b8b3
 		sourceColumn: BulanAngka
 
 	column NamaBulan
 		dataType: string
-		summarizeBy: none
+		lineageTag: 15e32c99-071b-436c-9826-4afc13cc30f5
 		sourceColumn: NamaBulan
 		sortByColumn: BulanAngka
 
 	column BulanTahun
 		dataType: string
-		summarizeBy: none
+		lineageTag: 1004eadc-299d-4dfb-9ea4-6ce5a378743c
 		sourceColumn: BulanTahun
 
 	column Tahun
 		dataType: int64
-		summarizeBy: none
+		lineageTag: f621fc2a-c6f2-4991-844c-47ccfbd2d1ce
 		sourceColumn: Tahun
 
 	partition Dim_Waktu = m
 		mode: import
 		source =
-			let
-				Source = Csv.Document(File.Contents("E:/Managed Projects/tugas-spk/data_csv/Dim_Waktu.csv"),[Delimiter=",", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
-				#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DateKey", Int64.Type}, {"Tanggal", type date}, {"Hari", type text}, {"MingguKe", Int64.Type}, {"LabelMinggu", type text}, {"BulanAngka", Int64.Type}, {"NamaBulan", type text}, {"BulanTahun", type text}, {"Tahun", Int64.Type}})
-			in
-				#"Changed Type"
+				let
+				    Source = Csv.Document(File.Contents("E:/Managed Projects/tugas-spk/data_csv/Dim_Waktu.csv"),[Delimiter=",", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DateKey", Int64.Type}, {"Tanggal", type text}, {"Hari", type text}, {"MingguKe", Int64.Type}, {"LabelMinggu", type text}, {"BulanAngka", Int64.Type}, {"NamaBulan", type text}, {"BulanTahun", type text}, {"Tahun", Int64.Type}})
+				in
+				    #"Changed Type"
+

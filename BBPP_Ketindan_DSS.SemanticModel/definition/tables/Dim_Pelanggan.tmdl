@@ -1,22 +1,23 @@
 table Dim_Pelanggan
-	lineageTag: 866b0c63-41ef-4417-8b67-504c69c811e1
+	lineageTag: 17b13a0e-e299-4d8c-9d2a-f5b44fe01ea6
 
 	column CustomerKey
 		dataType: string
-		summarizeBy: none
+		lineageTag: 6a42caeb-3496-4fac-befc-753e8f281a20
 		sourceColumn: CustomerKey
 
 	column NamaPembeli
 		dataType: string
-		summarizeBy: none
+		lineageTag: 86663e57-581b-4d3b-aaec-5a670c13e370
 		sourceColumn: NamaPembeli
 
 	partition Dim_Pelanggan = m
 		mode: import
 		source =
-			let
-				Source = Csv.Document(File.Contents("E:/Managed Projects/tugas-spk/data_csv/Dim_Pelanggan.csv"),[Delimiter=",", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),
-				#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"CustomerKey", type text}, {"NamaPembeli", type text}})
-			in
-				#"Changed Type"
+				let
+				    Source = Csv.Document(File.Contents("E:/Managed Projects/tugas-spk/data_csv/Dim_Pelanggan.csv"),[Delimiter=",", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"CustomerKey", type text}, {"NamaPembeli", type text}})
+				in
+				    #"Changed Type"
+

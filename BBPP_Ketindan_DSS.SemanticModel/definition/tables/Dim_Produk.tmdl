@@ -1,32 +1,33 @@
 table Dim_Produk
-	lineageTag: 81befaff-02b4-4ab5-91ae-039ccc705728
+	lineageTag: 89bba5c0-8469-4f27-9e02-9f4c92e6f47a
 
 	column ProductKey
 		dataType: string
-		summarizeBy: none
+		lineageTag: 43f443cc-e041-4154-8e26-a7fecfe33b85
 		sourceColumn: ProductKey
 
 	column Komoditas
 		dataType: string
-		summarizeBy: none
+		lineageTag: 9b6ac6d4-4c0a-42ab-aa33-24a58311a324
 		sourceColumn: Komoditas
 
 	column Grade
 		dataType: string
-		summarizeBy: none
+		lineageTag: bc211521-680a-469c-9815-c856c9231e73
 		sourceColumn: Grade
 
 	column SatuanDefault
 		dataType: string
-		summarizeBy: none
+		lineageTag: c3f792f2-eb62-41f8-b357-82dd49b5db42
 		sourceColumn: SatuanDefault
 
 	partition Dim_Produk = m
 		mode: import
 		source =
-			let
-				Source = Csv.Document(File.Contents("E:/Managed Projects/tugas-spk/data_csv/Dim_Produk.csv"),[Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
-				#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ProductKey", type text}, {"Komoditas", type text}, {"Grade", type text}, {"SatuanDefault", type text}})
-			in
-				#"Changed Type"
+				let
+				    Source = Csv.Document(File.Contents("E:/Managed Projects/tugas-spk/data_csv/Dim_Produk.csv"),[Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ProductKey", type text}, {"Komoditas", type text}, {"Grade", type text}, {"SatuanDefault", type text}})
+				in
+				    #"Changed Type"
+
