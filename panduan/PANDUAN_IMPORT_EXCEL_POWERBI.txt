@@ -1,0 +1,89 @@
+# PANDUAN PRAKTIS 3 MENIT: IMPORT DATA WAREHOUSE & BANGUN DASHBOARD DI POWER BI DESKTOP
+# Studi Kasus: Kebun Produksi BBPP Ketindan, Lawang - Malang
+# File Sumber Data Bersih: E:\Managed Projects\tugas-spk\Data_Warehouse_BBPP_Ketindan_Cleaned.xlsx
+
+================================================================================
+LANGKAH 1: BUKA POWER BI DESKTOP & IMPORT DATA (HANYA 30 DETIK)
+================================================================================
+1. Buka aplikasi Power BI Desktop dari Start Menu.
+2. Pada layar awal (Home):
+   - Klik tombol "Import data from Excel" (atau menu Home > Excel workbook).
+   - Arahkan ke file:
+     E:\Managed Projects\tugas-spk\Data_Warehouse_BBPP_Ketindan_Cleaned.xlsx
+3. Di jendela Navigator yang muncul:
+   - Centang KELIMA sheet berikut:
+     [✔] Dim_Lahan
+     [✔] Dim_Pelanggan
+     [✔] Dim_Produk
+     [✔] Dim_Waktu
+     [✔] Fact_Penjualan
+   - Klik tombol kuning "Load" di pojok kanan bawah.
+   - Selesai! Power BI akan langsung memuat 549 baris fakta dan 4 tabel dimensi.
+
+================================================================================
+LANGKAH 2: CEK MODEL RELASI STAR SCHEMA (TAB MODEL VIEW - 30 DETIK)
+================================================================================
+1. Di panel paling kiri Power BI Desktop, klik ikon ke-3 ("Model view" / ikon diagram relasi).
+2. Anda akan melihat tabel `Fact_Penjualan` di tengah dan 4 tabel dimensi mengelilinginya.
+3. Power BI biasanya sudah otomatis menghubungkan relasi:
+   - Fact_Penjualan[DateKey] ------> Dim_Waktu[DateKey] (1:N)
+   - Fact_Penjualan[ProductKey] ---> Dim_Produk[ProductKey] (1:N)
+   - Fact_Penjualan[CustomerKey] --> Dim_Pelanggan[CustomerKey] (1:N)
+   - Fact_Penjualan[LahanKey] -----> Dim_Lahan[LahanKey] (1:N)
+   *(Jika ada yang belum terhubung, cukup klik dan tarik (drag & drop) nama kolom dari Fact ke Dim terkait).*
+
+================================================================================
+LANGKAH 3: MEMBUAT MEASURE DAX INTI (1 MENIT)
+================================================================================
+Di panel "Data" sebelah kanan, klik kanan pada tabel `Fact_Penjualan` > pilih "New measure", lalu paste rumus berikut:
+
+1. Total Pendapatan = 
+   SUM(Fact_Penjualan[TotalPendapatan])
+   *(Ubah Format ke Currency Rp di ribbon Measure Tools)*
+
+2. Total Volume = 
+   SUM(Fact_Penjualan[Volume])
+
+3. Total Transaksi = 
+   COUNTROWS(Fact_Penjualan)
+
+4. Total Pembeli Unik = 
+   DISTINCTCOUNT(Fact_Penjualan[CustomerKey])
+
+================================================================================
+LANGKAH 4: MEMBUAT VISUALISASI 5 KPI (REPORT VIEW - 1 MENIT)
+================================================================================
+Klik ikon ke-1 di panel kiri ("Report view").
+
+1. Baris Atas (5 KPI Cards):
+   - Klik ikon visual "Card" (123) di panel Visualizations.
+   - Masukkan `[Total Pendapatan]` (akan muncul Rp 29,82 Jt).
+   - Buat card serupa untuk `[Total Volume]` (2.378), `[Total Transaksi]` (549), dan `[Total Pembeli Unik]` (214).
+
+2. Tengah Kiri: Tren Pendapatan Mingguan (Menjawab KPI 1 & KPI 2):
+   - Klik visual "Clustered column chart" (grafik batang vertikal).
+   - X-axis: `Dim_Waktu[LabelMinggu]`
+   - Y-axis: `[Total Pendapatan]`
+   - (Akan terlihat lonjakan tajam di Minggu ke-36 sebesar Rp 15,1 Jt).
+
+3. Tengah Kanan: Kontribusi Blok Lahan:
+   - Klik visual "Donut chart".
+   - Legend: `Dim_Lahan[KodeLahan]`
+   - Values: `[Total Pendapatan]`
+
+4. Bawah Kiri: Produk Pendapatan Terbesar & Terlaris (Menjawab KPI 3 & KPI 4):
+   - Klik visual "Clustered bar chart" (grafik batang horizontal).
+   - Y-axis: `Dim_Produk[Komoditas]`
+   - X-axis: `[Total Pendapatan]`
+   - (Akan terlihat Melon Sweet Lavender Rp 14,4 Jt dan Tomat Cherry Rp 9,6 Jt di posisi teratas).
+
+5. Bawah Kanan: Pembeli Terbanyak (Menjawab KPI 5):
+   - Klik visual "Table" atau "Clustered bar chart".
+   - Masukkan `Dim_Pelanggan[NamaPembeli]` dan `[Total Pendapatan]`.
+   - Urutkan descending (Top buyer: B Rara Surabaya Rp 2,87 Jt & P Joni Batu Rp 2,70 Jt).
+
+================================================================================
+LANGKAH 5: SIMPAN SEBAGAI PBIX DAN AMBIL SCREENSHOT
+================================================================================
+1. Klik File > Save As > Simpan sebagai `BBPP_Ketindan_DSS.pbix` di folder `E:\Managed Projects\tugas-spk\`.
+2. Ambil screenshot layar Power BI Anda (Win + Shift + S).
