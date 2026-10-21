@@ -1,0 +1,74 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "63039eae35138fa50d7d",
+  "position": {
+    "x": 0,
+    "y": 138.60182370820669,
+    "z": 0,
+    "height": 115.25835866261399,
+    "width": 430.3951367781155,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Penjualan"
+                    }
+                  },
+                  "Property": "Total Pendapatan"
+                }
+              },
+              "queryRef": "Fact_Penjualan.Total Pendapatan",
+              "nativeQueryRef": "Total Pendapatan"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_Penjualan"
+                  }
+                },
+                "Property": "Total Pendapatan"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b7cd4002e993a78dd23c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Penjualan"
+              }
+            },
+            "Property": "Total Pendapatan"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

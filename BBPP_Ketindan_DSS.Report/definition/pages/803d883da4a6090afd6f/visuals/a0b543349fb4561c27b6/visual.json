@@ -1,0 +1,75 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "a0b543349fb4561c27b6",
+  "position": {
+    "x": 7.1054273576010019E-15,
+    "y": 667.00000000000068,
+    "z": 2000,
+    "height": 413,
+    "width": 684,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Produk"
+                    }
+                  },
+                  "Property": "Komoditas"
+                }
+              },
+              "queryRef": "Dim_Produk.Komoditas",
+              "nativeQueryRef": "Komoditas",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Penjualan"
+                    }
+                  },
+                  "Property": "Total Pendapatan"
+                }
+              },
+              "queryRef": "Fact_Penjualan.Total Pendapatan",
+              "nativeQueryRef": "Total Pendapatan"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_Penjualan"
+                  }
+                },
+                "Property": "Total Pendapatan"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

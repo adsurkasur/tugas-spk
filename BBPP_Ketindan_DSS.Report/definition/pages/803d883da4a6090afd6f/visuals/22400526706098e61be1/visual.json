@@ -1,0 +1,74 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "22400526706098e61be1",
+  "position": {
+    "x": 430.3951367781155,
+    "y": 138.60182370820669,
+    "z": 8000,
+    "height": 115.25835866261399,
+    "width": 497.5075987841945,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Penjualan"
+                    }
+                  },
+                  "Property": "Total Volume"
+                }
+              },
+              "queryRef": "Fact_Penjualan.Total Volume",
+              "nativeQueryRef": "Total Volume"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_Penjualan"
+                  }
+                },
+                "Property": "Total Volume"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "3b9bbdf5652f6d2a15c9",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Penjualan"
+              }
+            },
+            "Property": "Total Volume"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

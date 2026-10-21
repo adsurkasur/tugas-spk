@@ -1,0 +1,75 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "d4aeb95c01bea95ac502",
+  "position": {
+    "x": 684.25531914893611,
+    "y": 253.86018237082067,
+    "z": 4000,
+    "height": 412.88753799392094,
+    "width": 684.25531914893611,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Lahan"
+                    }
+                  },
+                  "Property": "KodeLahan"
+                }
+              },
+              "queryRef": "Dim_Lahan.KodeLahan",
+              "nativeQueryRef": "KodeLahan",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Penjualan"
+                    }
+                  },
+                  "Property": "Total Pendapatan"
+                }
+              },
+              "queryRef": "Fact_Penjualan.Total Pendapatan",
+              "nativeQueryRef": "Total Pendapatan"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_Penjualan"
+                  }
+                },
+                "Property": "Total Pendapatan"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

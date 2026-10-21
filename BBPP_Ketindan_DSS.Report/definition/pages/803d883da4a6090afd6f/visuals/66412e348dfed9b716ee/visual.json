@@ -1,0 +1,72 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "66412e348dfed9b716ee",
+  "position": {
+    "x": 7.1054273576010019E-15,
+    "y": 254.11246200607931,
+    "z": 1000,
+    "height": 412.88753799392094,
+    "width": 684.25531914893611,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Waktu"
+                    }
+                  },
+                  "Property": "LabelMinggu"
+                }
+              },
+              "queryRef": "Dim_Waktu.LabelMinggu",
+              "nativeQueryRef": "LabelMinggu",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Penjualan"
+                    }
+                  },
+                  "Property": "Total Pendapatan"
+                }
+              },
+              "queryRef": "Fact_Penjualan.Total Pendapatan",
+              "nativeQueryRef": "Total Pendapatan"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

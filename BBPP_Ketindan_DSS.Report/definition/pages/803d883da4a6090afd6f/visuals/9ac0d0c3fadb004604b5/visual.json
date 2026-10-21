@@ -1,0 +1,74 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "9ac0d0c3fadb004604b5",
+  "position": {
+    "x": 927.90273556231,
+    "y": 138.60182370820669,
+    "z": 7000,
+    "height": 115.25835866261399,
+    "width": 440.60790273556228,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Penjualan"
+                    }
+                  },
+                  "Property": "Total Transaksi"
+                }
+              },
+              "queryRef": "Fact_Penjualan.Total Transaksi",
+              "nativeQueryRef": "Total Transaksi"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_Penjualan"
+                  }
+                },
+                "Property": "Total Transaksi"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "23671f14cf639c12a29f",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Penjualan"
+              }
+            },
+            "Property": "Total Transaksi"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
