@@ -20,7 +20,7 @@ def create_presentation():
     COLOR_TEXT_MUTED = RGBColor(108, 117, 125)# Cool Gray
     COLOR_WHITE = RGBColor(255, 255, 255)
 
-    base_dir = r"E:\Managed Projects\tugas-spk"
+    base_dir = r"E:\managed-projects-handoff\tugas-spk"
     screenshot_dashboard = os.path.join(base_dir, "assets", "screenshots", "powerbi_dashboard_overview.png")
     screenshot_schema = os.path.join(base_dir, "assets", "screenshots", "star_schema_architecture.png")
 
@@ -275,7 +275,7 @@ def create_presentation():
                  "Batas Akhir Pengumpulan: 23 Oktober 2026 ke brone.ub.ac.id"
              ])
 
-    out_pptx = r"E:\Managed Projects\tugas-spk\Presentasi_DSS_BBPP_Ketindan.pptx"
+    out_pptx = r"E:\managed-projects-handoff\tugas-spk\Presentasi_DSS_BBPP_Ketindan.pptx"
     prs.save(out_pptx)
     print(f"Successfully generated updated presentation with screenshots at: {out_pptx}")
 

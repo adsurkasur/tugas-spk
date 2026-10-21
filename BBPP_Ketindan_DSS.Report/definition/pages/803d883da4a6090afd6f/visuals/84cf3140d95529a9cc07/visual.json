@@ -65,37 +65,5 @@
       }
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "08ba40766eb6cf09c576",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Dim_Pelanggan"
-              }
-            },
-            "Property": "NamaPembeli"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "6b9bdaf1e0cb6d01fc82",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Fact_Penjualan"
-              }
-            },
-            "Property": "Total Pendapatan"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }
