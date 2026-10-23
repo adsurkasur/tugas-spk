@@ -38,7 +38,7 @@ Berdasarkan data aktual 549 transaksi periode 3 Agustus – 25 September 2026 (T
 | **KPI 1** | Pendapatan per Minggu | Puncak panen raya terjadi di **Minggu ke-36 (Rp 15.121.720)** | Menerapkan *staggered planting* agar pasokan merata |
 | **KPI 2** | Pendapatan per Bulan | **Agustus:** Rp 10.597.000 \| **September:** Rp 19.221.920 (+81,4%) | Evaluasi pencapaian target berkala dan kesiapan logistik |
 | **KPI 3** | Produk Pendapatan Terbesar | **Melon Sweet Lavender (Rp 14.436.800)** & **Tomat Cherry (Rp 9.603.500)** | Alokasi anggaran perawatan & varietas prioritas |
-| **KPI 4** | Produk Terbanyak Terjual (Volume) | **Melon Lavender (860 buah)** & **Pete (487 ikat)** | Pencegahan pembusukan panen & perputaran inventaris |
+| **KPI 4** | Produk Terbanyak Terjual (Volume) | **Melon Sweet Lavender (860 kg)** & **Pete (487 pack)** | Pencegahan pembusukan panen & perputaran inventaris |
 | **KPI 5** | Pembeli Belanja Terbanyak | **B Rara Surabaya (Rp 2,87 Jt)** & **P Joni Batu (Rp 2,70 Jt)** | Kontrak kemitraan *pre-order* & komitmen serapan |
 
 ---

@@ -20,7 +20,7 @@
 - **Tantangan Bisnis & Pengambilan Keputusan**:
   1. *Perencanaan Masa Tanam & Panen*: Ketiadaan agregasi data terpusat membuat manajer kebun sulit memprediksi komoditas mana yang memberikan margin pendapatan tertinggi dalam siklus 2 bulan.
   2. *Fluktuasi Permintaan Pasar*: Distribusi hasil panen masih mengandalkan kombinasi pembeli ritel spontan dan pedagang grosir besar tanpa segmentasi volume yang terstruktur.
-  3. *Manajemen Utilisasi Lahan*: Terdapat beberapa kode lahan produksi (`PROGEV`, `PP`, `SGH`, `P3K`, `UMUM`) yang perlu dievaluasi produktivitas finansialnya per meter persegi.
+  3. *Manajemen Utilisasi Lahan*: Terdapat beberapa kode lahan produksi (`PROGEV`, `PP`, `SGH`, `P3K`, `UMUM`) yang perlu dievaluasi produktivitas finansialnya.
 
 ---
 
@@ -68,7 +68,7 @@ Berdasarkan prinsip Kimball & Taniar (2021), data ditransformasikan dari bentuk 
 ## SLIDE 6: PENGEMBANGAN POWER BI DASHBOARD (EXECUTIVE VIEW & KPI CARDS)
 - **Visualisasi KPI Summary Cards**:
   - Total Pendapatan: **Rp 29.818.920**
-  - Total Volume Penjualan: **2.378 Unit/Kg**
+  - Total Volume Penjualan: **2.116 (gabungan Kg/Pack/Ikat/Buah)**
   - Total Transaksi: **549 Transaksi**
   - Total Pembeli Unik: **214 Pembeli**
   - Pertumbuhan MoM (Agt ke Sep): **+81,39%**
@@ -82,8 +82,8 @@ Berdasarkan prinsip Kimball & Taniar (2021), data ditransformasikan dari bentuk 
 - **Visual 1: Tren Pendapatan & Transaksi Mingguan (Combo Chart - KPI 1 & 2)**
   - Menunjukkan dinamika mingguan. Pendapatan melonjak tajam pada **Minggu ke-36** mencapai **Rp 15.121.720** (lebih dari 50% total omzet 2 bulan) akibat panen serentak melon premium.
 - **Visual 2: Pareto Kontribusi Produk (Bar Chart - KPI 3 & 4)**
-  - *Melon Sweet Lavender* menjadi kontributor omzet nomor 1 (**Rp 14.436.800**, volume 860 buah), disusul *Tomat Cherry* (**Rp 9.603.500**, volume 372 kg).
-  - *Pete* mendominasi volume (487 ikat) namun bernilai pendapatan Rp 2.435.000.
+  - *Melon Sweet Lavender* menjadi kontributor omzet nomor 1 (**Rp 14.436.800**, volume 860 kg), disusul *Tomat Cherry* (**Rp 9.603.500**, volume 372 kg).
+  - *Pete* mendominasi volume (487 pack) namun bernilai pendapatan Rp 2.435.000.
 - **Visual 3: Top Pembeli & Analisis Konsentrasi Pasar (KPI 5)**
   - Dua pembeli grosir luar kota menyerap lebih dari 18% omzet: *B Rara Surabaya* (Rp 2.868.000) dan *P Joni Batu* (Rp 2.698.000).
 
@@ -115,8 +115,8 @@ Sebagai Sistem Penunjang Keputusan (DSS), dashboard ini merekomendasikan:
   - Penerapan Business Intelligence berbasis Star Schema Data Warehouse berhasil mengubah data operasional mentah buku kas kebun BBPP Ketindan menjadi informasi analitis yang siap pakai.
   - 5 KPI yang dirancang memberikan visibilitas penuh bagi pimpinan dalam memonitor pendapatan mingguan/bulanan, evaluasi produk terlaris, dan pengelolaan pelanggan.
 - **Tautan Dashboard Interaktif (Power BI Publish to Web)**:
-  - *URL Dashboard*: `https://app.powerbi.com/view?r=eyJrIjoiQkJQUF9LZXRpbmRhbl9EU1NfMjAyNiIsInQiOiJmYWJyaWMtY2ljZC11YiJ9`
-  - *(Catatan: URL ini dapat diperbarui setelah file PBIP di-publish melalui akun Power BI institusi)*.
+  - *URL Dashboard*: `https://app.powerbi.com/links/76fma9KOTC?ctid=8b603e04-2c81-4b3c-a54e-b1211ffbceed&pbi_source=linkShare`
+  - *(Tautan Share Power BI Service, akun trial; penerima perlu login akun organisasi)*.
 - **Lampiran Berkas**:
   - File Excel Bersih Star Schema: `Data_Warehouse_BBPP_Ketindan_Cleaned.xlsx`
   - Proyek Power BI: `BBPP_Ketindan_DSS.pbip`

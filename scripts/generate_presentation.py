@@ -1,4 +1,7 @@
 import os
+
+# Ganti dengan tautan Publish to Web / Share dari app.powerbi.com
+DASHBOARD_URL = "https://app.powerbi.com/links/76fma9KOTC?ctid=8b603e04-2c81-4b3c-a54e-b1211ffbceed&pbi_source=linkShare"
 from pptx import Presentation
 from pptx.util import Inches, Pt
 from pptx.dml.color import RGBColor
@@ -47,31 +50,39 @@ def create_presentation():
         line.fill.fore_color.rgb = COLOR_SECONDARY
         line.line.color.rgb = COLOR_SECONDARY
 
-    def add_card(slide, left, top, width, height, title, content_list, bg_color=COLOR_WHITE, border_color=COLOR_SECONDARY):
-        card = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left, top, width, height)
+    def add_card(slide, left, top, width, height, title, content_list, bg_color=COLOR_BG_LIGHT, border_color=COLOR_SECONDARY):
+        card = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, left, top, width, height)
         card.fill.solid()
         card.fill.fore_color.rgb = bg_color
-        card.line.color.rgb = border_color
-        card.line.width = Pt(1.5)
+        card.line.color.rgb = RGBColor(222, 226, 230)
+        card.line.width = Pt(0.75)
+        bar = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, left, top, Inches(0.08), height)
+        bar.fill.solid()
+        bar.fill.fore_color.rgb = border_color
+        bar.line.fill.background()
 
-        tb = slide.shapes.add_textbox(left + Inches(0.22), top + Inches(0.18), width - Inches(0.44), height - Inches(0.36))
+        tb = slide.shapes.add_textbox(left + Inches(0.35), top + Inches(0.25), width - Inches(0.55), height - Inches(0.45))
         tf = tb.text_frame
         tf.word_wrap = True
         tf.margin_left = tf.margin_top = tf.margin_right = tf.margin_bottom = 0
 
         p_t = tf.paragraphs[0]
         p_t.text = title
-        p_t.font.size = Pt(14)
+        p_t.font.size = Pt(16)
         p_t.font.bold = True
         p_t.font.color.rgb = COLOR_PRIMARY
-        p_t.space_after = Pt(8)
+        p_t.space_after = Pt(12)
 
+        # ponytail: heuristik kepadatan teks (karakter per inci lebar), ganti ke fit_text bila butuh presisi
+        dense = sum(len(i) for i in content_list) / (width / 914400) > 110
         for item in content_list:
             p = tf.add_paragraph()
             p.text = "• " + item
-            p.font.size = Pt(11.5)
+            p.font.size = Pt(13 if dense else 16)
             p.font.color.rgb = COLOR_TEXT_DARK
-            p.space_after = Pt(5)
+            p.space_after = Pt(10)
+            if "https://" in item:
+                p.runs[0].hyperlink.address = "https://" + item.split("https://", 1)[1].split()[0]
 
     # ==================== SLIDE 1: COVER ====================
     slide1 = prs.slides.add_slide(blank_layout)
@@ -138,7 +149,7 @@ def create_presentation():
     add_card(slide3, Inches(4.8), Inches(1.7), Inches(3.7), Inches(5.3),
              "KPI Portofolio Produk", [
                  "KPI 3: Produk Pendapatan Terbesar\nMenentukan komoditas tulang punggung finansial (Melon Sweet Lavender Rp 14,44 Jt & Tomat Cherry Rp 9,60 Jt).",
-                 "KPI 4: Produk Terbanyak Terjual (Volume)\nMenilai serapan kuantitas pasar (Melon 860 buah, Pete 487 ikat) guna mitigasi risiko pembusukan panen."
+                 "KPI 4: Produk Terbanyak Terjual (Volume)\nMenilai serapan kuantitas pasar (Melon Sweet Lavender 860 kg, Pete 487 pack) guna mitigasi risiko pembusukan panen."
              ])
     add_card(slide3, Inches(8.8), Inches(1.7), Inches(3.7), Inches(5.3),
              "KPI Hubungan Pelanggan", [
@@ -155,13 +166,13 @@ def create_presentation():
                  "Periode waktu: 8 minggu operasional penuh (melampaui syarat minimal 3 minggu pada pedoman tugas).",
                  "Total transaksi: 549 baris pencatatan transaksi valid.",
                  "Total omzet riil terverifikasi: Rp 29.818.920.",
-                 "Cakupan entitas: 16 komoditas unik, 9 grade mutu, 214 pembeli unik, dan 5 blok lahan pertanian."
+                 "Cakupan entitas: 16 komoditas unik, 9 label grade mutu, 214 pembeli unik, dan 5 blok lahan pertanian."
              ])
     add_card(slide4, Inches(6.9), Inches(1.7), Inches(5.6), Inches(5.3),
              "Tahapan Data Cleansing & Transformasi", [
-                 "Koreksi Anomali Tanggal: Ditemukan 8 baris transaksi tertulis tahun 2025, 2028, dan 2029 (human error saat input); dinormalisasi ke tahun 2026 berdasarkan runtutan nomor transaksi.",
+                 "Koreksi Anomali Tanggal: Ditemukan 7 baris bertahun salah (4 baris 2025, 2 baris 2028, 1 baris 2029) dan 2 tanggal berformat teks; dinormalisasi ke 2026 berdasarkan runtutan nomor transaksi.",
                  "Standardisasi Teks & Trimming: Mengeliminasi spasi ganda dan trailing whitespace pada nama pelanggan dan produk.",
-                 "Harmonisasi Satuan & Grade: Menyeragamkan format satuan ('Kg', 'Pack', 'Ikat', 'Buah') dan grade ('A', 'B', 'C', 'Non Grade').",
+                 "Harmonisasi Satuan: Menyeragamkan penulisan satuan ('kg' menjadi 'Kg', 'paket' menjadi 'Pack' dengan harga identik) sehingga tersisa 4 satuan: Kg, Pack, Ikat, Buah.",
                  "Pemisahan Tabel Relasional: Data flat 1 sheet Excel ditransformasikan menjadi Star Schema terpisah."
              ])
 
@@ -198,9 +209,9 @@ def create_presentation():
     add_card(slide6, Inches(8.2), Inches(1.7), Inches(4.333), Inches(5.3),
              "Justifikasi Desain Visual DSS", [
                  "Format Kanvas: Widescreen 16:9 responsif dengan latar belakang kontras bersih.",
-                 "5 Executive Cards (Atas):\n• Total Pendapatan: Rp 29,82 Jt\n• Volume: 2.378 Unit/Kg\n• Transaksi: 549 Transaksi\n• Pembeli Unik: 214 Pembeli\n• Produk Teratas: Melon Lavender",
+                 "3 KPI Cards (Atas):\n• Total Pendapatan: Rp 29,82 Jt\n• Total Volume: 2.116 (gabungan Kg/Pack/Ikat/Buah)\n• Total Transaksi: 549 transaksi",
                  "Prinsip F-Shape Reading:\nKPI terpenting berada di posisi pandangan pertama (kiri atas) agar pimpinan dapat mengevaluasi kesehatan finansial dalam 5 detik.",
-                 "Slicer Interaktif:\nFilter dinamis berdasarkan Bulan, Blok Lahan, dan Komoditas."
+                 "Interaktivitas:\nSlicer Bulan (Agustus/September) dan cross-filter: klik batang, irisan donut lahan, atau baris pembeli untuk memfilter seluruh visual."
              ])
 
     # ==================== SLIDE 7: DRILL-DOWN & 5 KPI COMPARATIVE ====================
@@ -215,7 +226,7 @@ def create_presentation():
     add_card(slide7, Inches(6.9), Inches(1.7), Inches(5.6), Inches(5.3),
              "Performa Produk & Pembeli (KPI 3, 4, 5)", [
                  "Produk Pendapatan Terbesar (KPI 3):\n1. Melon Sweet Lavender: Rp 14.436.800 (48,4%)\n2. Tomat Cherry: Rp 9.603.500 (32,2%)\n3. Pete: Rp 2.435.000 (8,2%)",
-                 "Produk Volume Terbanyak (KPI 4):\nMelon Lavender (860 buah), Pete (487 ikat), dan Tomat Cherry (372 kg).",
+                 "Produk Volume Terbanyak (KPI 4):\nMelon Sweet Lavender (860 kg), Pete (487 pack), dan Tomat Cherry (372,5 kg).",
                  "Pembeli Belanja Tertinggi (KPI 5):\n• B Rara Surabaya: Rp 2.868.000 (Grosir)\n• P Joni Batu: Rp 2.698.000 (Grosir)\nTop 2 pembeli menyerap 18,7% total pendapatan kebun."
              ])
 
@@ -226,11 +237,11 @@ def create_presentation():
              "Efek Pareto 80/20 Portofolio Produk", [
                  "Hanya 2 dari 16 komoditas (Melon Sweet Lavender dan Tomat Cherry) menyumbang 80,6% dari seluruh total omzet kebun BBPP Ketindan.",
                  "14 komoditas lainnya (sawi, selada, kimpul, kenikir) menyumbang 19,4% omzet, namun berfungsi menjaga arus kas harian dan perputaran cepat di pasar lokal.",
-                 "Produktivitas Lahan: Blok PROGEV dan Greenhouse (SGH) menghasilkan margin moneter tertinggi per meter persegi lahan."
+                 "Konsentrasi Lahan: Smart Greenhouse (SGH) menghasilkan Rp 26,33 Jt (88,3% omzet), lahan UMUM 10,5%, sedangkan PP, P3K, dan PROGEV gabungan kurang dari 1,2%."
              ])
     add_card(slide8, Inches(6.9), Inches(1.7), Inches(5.6), Inches(5.3),
              "Karakteristik Pembeli & Kerentanan Pasar", [
-                 "Distribusi Pembeli Tidak Seimbang: Mayoritas (212 pembeli) adalah pembeli ritel bernilai belanja kecil (Rp 10.000 - Rp 300.000).",
+                 "Distribusi Pembeli Tidak Seimbang: 193 dari 214 pembeli (90%) berbelanja total di bawah Rp 300.000 selama 8 minggu, sementara 2 pembeli grosir teratas menyerap 18,7% omzet.",
                  "Ketergantungan Pembeli Luar Kota: Kebun sangat mengandalkan pembeli borongan besar asal Surabaya dan Kota Batu untuk menyerap panen raya.",
                  "Risiko Bisnis: Tanpa kepastian jadwal kedatangan pembeli grosir saat masa panen raya, potensi penurunan mutu atau pembusukan buah melon sangat tinggi."
              ])
@@ -252,8 +263,8 @@ def create_presentation():
              ])
     add_card(slide9, Inches(8.8), Inches(1.7), Inches(3.7), Inches(5.3),
              "3. Optimasi Alokasi Lahan", [
-                 "Prioritaskan fasilitas Smart Greenhouse (SGH & PROGEV) khusus untuk varietas komersial bernilai tinggi.",
-                 "Lahan terbuka (PP/UMUM) dimaksimalkan untuk tanaman cepat panen berbiaya operasional rendah.",
+                 "Pertahankan Smart Greenhouse (SGH), sumber 88,3% omzet, khusus untuk varietas bernilai tinggi (Melon & Tomat Cherry).",
+                 "Evaluasi pemanfaatan blok PP, P3K, dan PROGEV yang kontribusinya di bawah 1%: alihkan ke tanaman cepat panen berbiaya rendah.",
                  "Gunakan dashboard Power BI ini untuk evaluasi mingguan operasional kebun."
              ])
 
@@ -268,9 +279,9 @@ def create_presentation():
              ])
     add_card(slide10, Inches(6.9), Inches(1.7), Inches(5.6), Inches(5.3),
              "Tautan Dashboard & Berkas Pengumpulan", [
-                 "Tautan Dashboard Interaktif (Publish to Web):\nhttps://app.powerbi.com/view?r=eyJrIjoiQkJQUF9LZXRpbmRhbl9EU1NfMjAyNiIsInQiOiJmYWJyaWMtY2ljZC11YiJ9",
+                 "Tautan Dashboard Interaktif (Power BI):\n" + DASHBOARD_URL,
                  "Repositori Publik GitHub:\nhttps://github.com/adsurkasur/tugas-spk",
-                 "Berkas Excel Star Schema (Data Bersih):\nData_Warehouse_BBPP_Ketindan_Cleaned.xlsx",
+                 "Berkas Excel (Data Mentah, Star Schema, Ringkasan KPI):\nData_Warehouse_BBPP_Ketindan_Cleaned.xlsx",
                  "Berkas Proyek Power BI:\nBBPP_Ketindan_DSS.pbip (Format TMDL)",
                  "Batas Akhir Pengumpulan: 23 Oktober 2026 ke brone.ub.ac.id"
              ])

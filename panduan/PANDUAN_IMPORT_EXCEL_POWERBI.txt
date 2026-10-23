@@ -58,7 +58,7 @@ Klik ikon ke-1 di panel kiri ("Report view").
 1. Baris Atas (5 KPI Cards):
    - Klik ikon visual "Card" (123) di panel Visualizations.
    - Masukkan `[Total Pendapatan]` (akan muncul Rp 29,82 Jt).
-   - Buat card serupa untuk `[Total Volume]` (2.378), `[Total Transaksi]` (549), dan `[Total Pembeli Unik]` (214).
+   - Buat card serupa untuk `[Total Volume]` (2.116), `[Total Transaksi]` (549), dan `[Total Pembeli Unik]` (214).
 
 2. Tengah Kiri: Tren Pendapatan Mingguan (Menjawab KPI 1 & KPI 2):
    - Klik visual "Clustered column chart" (grafik batang vertikal).

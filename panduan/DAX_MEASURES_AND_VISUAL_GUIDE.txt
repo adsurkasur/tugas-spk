@@ -118,7 +118,7 @@ Layout Kanvas (16:9 - 1280 x 720 px):
 
 [BARIS 1: KPI CARDS]
 - Card 1: [Total Pendapatan] -> Format Currency: Rp 29.818.920
-- Card 2: [Total Volume Terjual] -> Format Number: 2.378 Unit/Kg
+- Card 2: [Total Volume Terjual] -> Format Number: 2.116 (gabungan Kg/Pack/Ikat/Buah)
 - Card 3: [Total Transaksi] -> Format Number: 549 Transaksi
 - Card 4: [Total Pelanggan Unik] -> Format Number: 214 Pembeli
 - Card 5: [Pertumbuhan Pendapatan MoM %] -> Format Percentage: +81,39% (Kenaikan dari Agt ke Sep)

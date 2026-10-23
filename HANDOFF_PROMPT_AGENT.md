@@ -73,7 +73,7 @@ tugas-spk/
 | **KPI 1** | Pendapatan per Minggu | Clustered column chart (`LabelMinggu` vs `Total Pendapatan`) | Lonjakan panen raya di **Minggu ke-36 (Rp 15.121.720)** (>50% omzet). Rekomendasi: *Staggered planting*. |
 | **KPI 2** | Pendapatan per Bulan | Slicer `NamaBulan` & Card Pendapatan | **Agustus:** Rp 10.597.000 \| **September:** Rp 19.221.920 (+81,4% MoM). |
 | **KPI 3** | Produk Pendapatan Terbesar | Clustered bar chart (`Komoditas` vs `Total Pendapatan`) | **Melon Sweet Lavender (Rp 14,44 Jt)** & **Tomat Cherry (Rp 9,60 Jt)** menyumbang 80,6% total omzet kebun (*Pareto 80/20*). |
-| **KPI 4** | Produk Terbanyak Terjual (Volume) | Clustered bar chart (`Komoditas` vs `Total Volume`) | **Melon Lavender (860 buah)**, **Pete (487 ikat)**, dan **Tomat Cherry (372 kg)**. Sayuran daun berputar cepat tapi bermargin rendah. |
+| **KPI 4** | Produk Terbanyak Terjual (Volume) | Clustered bar chart (`Komoditas` vs `Total Volume`) | **Melon Sweet Lavender (860 kg)**, **Pete (487 pack)**, dan **Tomat Cherry (372,5 kg)**. Sayuran daun berputar cepat tapi bermargin rendah. |
 | **KPI 5** | Pembeli Belanja Terbanyak | Table sorted descending (`NamaPembeli` vs `Total Pendapatan`) | Pembeli grosir borongan mendominasi: **B Rara Surabaya (Rp 2,87 Jt)** & **P Joni Batu (Rp 2,70 Jt)**. Rekomendasi: Kontrak pasokan *pre-order*. |
 
 ---
