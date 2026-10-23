@@ -82,5 +82,5 @@ tugas-spk/
 └── scripts/                                  # Skrip Python otomasi data & rendering
     ├── generate_tmdl.py                      # Generator semantik model Power BI
     ├── generate_screenshots.py               # Generator visual mockup dashboard & diagram
-    └── generate_presentation.py              # Generator slide PPTX & export PDF
+    └── build_deck.js                         # Generator deck 10 slide (pptxgenjs), angka dari data_csv/
 ```

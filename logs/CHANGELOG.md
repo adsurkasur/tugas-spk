@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.0] - 2026-10-23
+### Changed
+- Presentasi dibangun ulang (mode analitis): judul berupa temuan, chart KPI dari data, foto lapangan, speaker notes, tombol tautan dashboard.
+- Generator lama diarsipkan; generator baru `scripts/build_deck.js`.
+
 ## [1.1.0] - 2026-10-23
 ### Fixed
 - Angka & klaim presentasi disesuaikan dengan data (volume, satuan, anomali tanggal, kontribusi lahan, distribusi pembeli).

@@ -1,5 +1,11 @@
 # Activity Log
 
+## [2026-10-23 12:30] Claude Code (Opus 5.5) — Deck dibangun ulang (talk-deck-builder, mode analitis)
+- **Goal**: Buat ulang presentasi 10 slide dengan judul berupa temuan, chart dari data, dan foto lapangan.
+- **Actions**: `scripts/build_deck.js` (pptxgenjs) membaca semua angka dari `data_csv/` dan memformatnya id-ID; 10 slide = judul + 8 isi + penutup ber-link; chart native KPI 1 dan KPI 3 dengan sorotan; foto observasi Oktober 2026 dari `assets/photos/`; speaker notes ringkas di tiap slide; nama pembeli perorangan bergelar disamarkan. Generator python-pptx lama dipindah ke `scripts/_archive/`.
+- **Files**: `scripts/build_deck.js` (baru), `scripts/_archive/`, `Presentasi_DSS_BBPP_Ketindan.{pptx,pdf}`, `assets/photos/*`, README, HANDOFF, logs.
+- **Verification**: pptx skill `validate.py` PASSED; PDF via PowerPoint COM 10 halaman, URI Power BI & GitHub ada; 10 notes slide; tidak ada frasa lama (2.378, 860 buah, link palsu, placeholder); semua halaman diperiksa visual.
+
 ## [2026-10-23 10:30] Claude Code (Opus 5.5) — Finalisasi berkas pengumpulan
 - **Goal**: Siapkan Excel + PDF 10 slide yang siap diunggah ke brone.ub.ac.id.
 - **Actions**:

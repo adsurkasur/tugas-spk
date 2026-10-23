@@ -50,7 +50,7 @@ tugas-spk/
 └── scripts/
     ├── generate_tmdl.py                      # Skrip pembuat TMDL model
     ├── generate_screenshots.py               # Generator visual mockup cadangan
-    └── generate_presentation.py              # Skrip kompilasi PPTX & ekspor PDF COM
+    └── build_deck.js                         # Generator deck 10 slide (pptxgenjs) + convert_pdf.ps1
 ```
 
 ---
