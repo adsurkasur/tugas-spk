@@ -101,7 +101,7 @@ Jika user telah menyimpan tangkapan layar baru atau mengupload gambar dashboard 
    - `E:\Managed Projects\tugas-spk\assets\screenshots\star_schema_architecture.png`
 2. Jalankan skrip generator presentasi via PowerShell / Python:
    ```powershell
-   python "E:\Managed Projects\tugas-spk\scripts\generate_presentation.py"
+   $env:NODE_PATH = (npm root -g); node scripts/build_deck.js; powershell -File convert_pdf.ps1
    ```
 3. Skrip akan otomatis:
    - Menyematkan identitas mahasiswa (Ade Surya Ananda - 2646000083).
