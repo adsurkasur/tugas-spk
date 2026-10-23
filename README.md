@@ -1,86 +1,57 @@
-# Proyek DSS & BI Dashboard Kebun Hortikultura BBPP Ketindan
+# Tugas 1 SPK: BI Dashboard sebagai DSS — Kebun Produksi BBPP Ketindan
 
-Repositori ini memuat implementasi lengkap **Sistem Penunjang Keputusan (DSS)** berbasis **Business Intelligence (Power BI)** untuk unit kebun produksi **Balai Besar Pelatihan Pertanian (BBPP) Ketindan, Lawang - Malang** (Kementerian Pertanian RI).
+**Ade Surya Ananda · NIM 2646000083 · Sistem Penunjang Keputusan**
 
-Proyek ini disusun untuk memenuhi tugas perkuliahan Sistem Penunjang Keputusan dengan standar perancangan **Kimball Star Schema Data Warehouse** dan pelaporan eksekutif 10 slide.
+Studi kasus kebun produksi Balai Besar Pelatihan Pertanian (BBPP) Ketindan, Lawang, Malang. Buku kasir penjualan 3 Agustus–25 September 2026 (549 transaksi, Rp 29.818.920) dibersihkan, dimodelkan menjadi star schema, lalu divisualisasikan di Power BI untuk lima KPI.
 
----
-
-## 1. Berkas Utama Pengumpulan Tugas (`brone.ub.ac.id`)
-Berdasarkan ketentuan pada pedoman tugas, dua berkas utama yang siap dikumpulkan:
-1. **File Excel Data Bersih Star Schema**:
-   - [`Data_Warehouse_BBPP_Ketindan_Cleaned.xlsx`](./Data_Warehouse_BBPP_Ketindan_Cleaned.xlsx)
-   - Terdiri dari 1 Tabel Fakta (`Fact_Penjualan`) dan 4 Tabel Dimensi (`Dim_Waktu`, `Dim_Produk`, `Dim_Pelanggan`, `Dim_Lahan`).
-2. **File Presentasi Eksekutif 10 Slide (Format PDF)**:
-   - [`Presentasi_DSS_BBPP_Ketindan.pdf`](./Presentasi_DSS_BBPP_Ketindan.pdf)
-   - Versi PowerPoint (editable): [`Presentasi_DSS_BBPP_Ketindan.pptx`](./Presentasi_DSS_BBPP_Ketindan.pptx)
-   - Dilengkapi *screenshots* dashboard Power BI nyata, diagram skema bintang, evaluasi 5 KPI, wawasan bisnis pareto 80/20, dan rekomendasi manajerial.
+**Dashboard interaktif:** [SPK_Ade Surya Ananda_2646000083_PowerBI](https://app.powerbi.com/links/76fma9KOTC?ctid=8b603e04-2c81-4b3c-a54e-b1211ffbceed&pbi_source=linkShare) (Power BI Service, perlu login akun organisasi yang diberi akses)
 
 ---
 
-## 2. Proyek Power BI (PBIP)
-- **File Proyek Power BI**: [`BBPP_Ketindan_DSS.pbip`](./BBPP_Ketindan_DSS.pbip)
-  - Cukup klik ganda file ini untuk membukanya langsung di **Power BI Desktop**.
-- **Model Data Semantik TMDL**: [`BBPP_Ketindan_DSS.SemanticModel/`](./BBPP_Ketindan_DSS.SemanticModel/)
-  - Menggunakan format modern *Tabular Model Definition Language* (TMDL).
-  - Hubungan relasional antar-tabel (*1-to-many*) dan ukuran DAX telah dikonfigurasi aktif.
-- **Definisi Report**: [`BBPP_Ketindan_DSS.Report/`](./BBPP_Ketindan_DSS.Report/)
-- **Data CSV Tables**: [`data_csv/`](./data_csv/)
-- **Panduan Formula DAX & Layout Visual**: [`panduan/DAX_MEASURES_AND_VISUAL_GUIDE.txt`](./panduan/DAX_MEASURES_AND_VISUAL_GUIDE.txt)
+## Berkas utama (root)
 
----
+Semua berkas memakai awalan `SPK_Ade Surya Ananda_2646000083_`.
 
-## 3. Ringkasan 5 Key Performance Indicators (KPI)
-Berdasarkan data aktual 549 transaksi periode 3 Agustus – 25 September 2026 (Total Omzet: **Rp 29.818.920**):
+| Berkas | Isi |
+|---|---|
+| `…_1_Buku Kasir Harian.xlsx` | Data mentah asli dari buku kasir kebun, tanpa perubahan. |
+| `…_2_Data Bersih.xlsx` | Satu tabel datar hasil pembersihan: tanggal dikoreksi ke 2026, satuan diseragamkan (`kg`→`Kg`, `paket`→`Pack`), ditambah kolom hari, minggu, dan bulan. |
+| `…_3_Data Warehouse Star Schema.xlsx` | Data yang sudah diolah: `Fact_Penjualan` + 4 dimensi (`Dim_Waktu`, `Dim_Produk`, `Dim_Pelanggan`, `Dim_Lahan`), sheet `Ringkasan_KPI` yang menjawab 5 KPI, dan salinan `Data_Mentah`. |
+| `…_4_Presentasi.pdf` | Presentasi 10 halaman; tautan dashboard ada di halaman terakhir. |
+| `…_PowerBI.pbip` | Proyek Power BI (buka dengan Power BI Desktop). Folder `…_PowerBI.Report/` dan `…_PowerBI.SemanticModel/` adalah bagiannya dan harus tetap di samping file ini. |
 
-| KPI | Indikator | Nilai / Temuan Utama | Keputusan Manajerial |
-|---|---|---|---|
-| **KPI 1** | Pendapatan per Minggu | Puncak panen raya terjadi di **Minggu ke-36 (Rp 15.121.720)** | Menerapkan *staggered planting* agar pasokan merata |
-| **KPI 2** | Pendapatan per Bulan | **Agustus:** Rp 10.597.000 \| **September:** Rp 19.221.920 (+81,4%) | Evaluasi pencapaian target berkala dan kesiapan logistik |
-| **KPI 3** | Produk Pendapatan Terbesar | **Melon Sweet Lavender (Rp 14.436.800)** & **Tomat Cherry (Rp 9.603.500)** | Alokasi anggaran perawatan & varietas prioritas |
-| **KPI 4** | Produk Terbanyak Terjual (Volume) | **Melon Sweet Lavender (860 kg)** & **Pete (487 pack)** | Pencegahan pembusukan panen & perputaran inventaris |
-| **KPI 5** | Pembeli Belanja Terbanyak | **B Rara Surabaya (Rp 2,87 Jt)** & **P Joni Batu (Rp 2,70 Jt)** | Kontrak kemitraan *pre-order* & komitmen serapan |
+**Untuk diunggah ke brone.ub.ac.id:** berkas 3 (Excel data KPI, sudah memuat data mentah) dan berkas 4 (PDF).
 
----
+## Lima KPI
 
-## 4. Struktur Direktori Proyek
+| KPI | Pertanyaan | Hasil |
+|---|---|---|
+| 1 | Berapa pendapatan setiap minggu? | Puncak Minggu-36: Rp 15.121.720 (50,7% omzet dua bulan) |
+| 2 | Berapa pendapatan setiap bulan? | Agustus Rp 10.597.000; September Rp 19.221.920 (+81,4%) |
+| 3 | Produk apa yang memberi pendapatan terbesar? | Melon Sweet Lavender Rp 14.436.800; Tomat Cherry Rp 9.603.500 (bersama 80,6%) |
+| 4 | Produk apa yang paling banyak terjual? | Melon Sweet Lavender 860 kg; Pete 487 pack; Tomat Cherry 372,5 kg |
+| 5 | Siapa pembeli yang belanjanya terbanyak? | B Rara Surabaya Rp 2.868.000; P Joni Batu Rp 2.698.000 (bersama 18,7%) |
 
-```text
-tugas-spk/
-├── README.md                                 # Dokumentasi lengkap proyek
-├── AGUSTUS SEPT 2026.xlsx                    # Data mentah asli transaksi kebun
-│
-├── Data_Warehouse_BBPP_Ketindan_Cleaned.xlsx # [BERKAS KUMPUL 1] Excel Data Warehouse Star Schema
-├── Presentasi_DSS_BBPP_Ketindan.pdf          # [BERKAS KUMPUL 2] PDF Presentasi 10 Slide
-├── Presentasi_DSS_BBPP_Ketindan.pptx         # File presentasi PowerPoint editable
-│
-├── BBPP_Ketindan_DSS.pbip                    # [POWER BI] File proyek Power BI Desktop
-├── BBPP_Ketindan_DSS.SemanticModel/          # Model data TMDL & relasi antar tabel
-├── BBPP_Ketindan_DSS.Report/                 # Definisi tampilan laporan Power BI
-├── data_csv/                                 # File CSV sumber data tabel model
-│
-├── assets/
-│   └── screenshots/                          # Tangkapan layar visual dashboard & skema bintang
-│       ├── powerbi_dashboard_overview.png
-│       └── star_schema_architecture.png
-│
-├── panduan/                                  # Instruksi tugas & panduan rumus/slide
-│   ├── tugas1.pdf                            # Panduan resmi tugas 1 perkuliahan
-│   ├── 5 kpi tugas.txt                       # Catatan 5 pertanyaan KPI
-│   ├── PANDUAN_PRESENTASI_10_SLIDE.md        # Transkrip lengkap isi 10 slide presentasi
-│   └── DAX_MEASURES_AND_VISUAL_GUIDE.txt     # Rumus DAX & rekomendasi kanvas visual
-│
-├── materi_kuliah/                            # Kumpulan referensi materi kuliah (lect01 - lect07)
-│   ├── lect01-intro to dss.pdf
-│   ├── lect02-process_system_model.pdf
-│   ├── lect03-dss_architecture.pdf
-│   ├── lect05-intro_to_data_warehouse.pdf
-│   ├── lect06-dw_design.pdf
-│   ├── lect07-bi.pdf
-│   └── Sistem Penunjang Keputusan Spreadsheet.pdf
-│
-└── scripts/                                  # Skrip Python otomasi data & rendering
-    ├── generate_tmdl.py                      # Generator semantik model Power BI
-    ├── generate_screenshots.py               # Generator visual mockup dashboard & diagram
-    └── build_deck.js                         # Generator deck 10 slide (pptxgenjs), angka dari data_csv/
+## Folder `Pendukung/`
+
+| Folder | Isi |
+|---|---|
+| `presentasi/` | File PowerPoint yang bisa diedit (sumber PDF). |
+| `data_csv/` | Lima tabel CSV yang dibaca model Power BI. |
+| `assets/` | Foto observasi lapangan (Oktober 2026) dan tangkapan layar dashboard/skema. |
+| `scripts/` | Script untuk membangun ulang Excel, presentasi, dan PDF; `_archive/` berisi script lama. |
+| `panduan/` | Soal tugas (`tugas1.pdf`), catatan 5 KPI, panduan DAX dan impor Power BI. |
+| `materi_kuliah/` | Materi kuliah referensi. |
+| `HANDOFF_PROMPT_AGENT.md` | Konteks lengkap untuk melanjutkan pekerjaan. |
+
+Folder `logs/` di root berisi catatan aktivitas, keputusan, dan changelog proyek.
+
+## Membangun ulang
+
+```powershell
+python Pendukung/scripts/build_excel_submission.py        # berkas 2 & 3, dengan self-check
+$env:NODE_PATH = (npm root -g); node Pendukung/scripts/build_deck.js
+powershell -File Pendukung/scripts/convert_pdf.ps1        # berkas 4 (butuh PowerPoint)
 ```
+
+Model Power BI membaca CSV dari `E:/managed-projects-handoff/tugas-spk/Pendukung/data_csv/`. Jika folder repo dipindah, ubah lima path `File.Contents` di Power Query (atau file `*.tmdl` di `…_PowerBI.SemanticModel/definition/tables/`), lalu Refresh.

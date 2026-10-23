@@ -1,6 +1,8 @@
-"""Lengkapi Excel pengumpulan: sheet Data_Mentah (salinan buku kasir asli),
-Ringkasan_KPI (jawaban 5 KPI), dan seragamkan satuan di Fact_Penjualan.
-Aman dijalankan ulang. Diakhiri self-check terhadap data_csv/."""
+"""Lengkapi Excel pengumpulan di root repo:
+- 3_Data Warehouse: sheet Data_Mentah (salinan buku kasir asli), Ringkasan_KPI
+  (jawaban 5 KPI), dan satuan Fact_Penjualan yang diseragamkan.
+- 2_Data Bersih: satu tabel datar hasil pembersihan (fakta + dimensi digabung).
+Aman dijalankan ulang. Diakhiri self-check terhadap Pendukung/data_csv/."""
 import collections
 import csv
 import os
@@ -8,9 +10,12 @@ import os
 import openpyxl
 from openpyxl.styles import Font, PatternFill
 
-BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-RAW = os.path.join(BASE, "AGUSTUS SEPT 2026.xlsx")
-OUT = os.path.join(BASE, "Data_Warehouse_BBPP_Ketindan_Cleaned.xlsx")
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # Pendukung/
+ROOT = os.path.dirname(BASE)
+PREFIX = "SPK_Ade Surya Ananda_2646000083"
+RAW = os.path.join(ROOT, f"{PREFIX}_1_Buku Kasir Harian.xlsx")
+CLEAN = os.path.join(ROOT, f"{PREFIX}_2_Data Bersih.xlsx")
+OUT = os.path.join(ROOT, f"{PREFIX}_3_Data Warehouse Star Schema.xlsx")
 SATUAN = {"kg": "Kg", "paket": "Pack"}  # paket & Pack berharga sama (Pete Rp5.000)
 HEAD = Font(bold=True, color="FFFFFF")
 FILL = PatternFill("solid", fgColor="184C34")
@@ -90,6 +95,30 @@ def main():
 
     wb.save(OUT)
 
+    lahan = {r["LahanKey"]: r["KodeLahan"] for r in sheet_rows(wb["Dim_Lahan"])}
+    clean = openpyxl.Workbook()
+    ws = clean.active
+    ws.title = "Data_Bersih"
+    header = ["No", "Tanggal", "Hari", "Minggu", "Bulan", "Komoditas", "Grade", "Pembeli",
+              "Volume", "Satuan", "Harga Satuan (Rp)", "Total (Rp)", "Lahan"]
+    ws.append(header)
+    for c in ws[1]:
+        c.font, c.fill = HEAD, FILL
+    for r in sorted(f, key=lambda r: r["TransactionID"]):
+        t, p = waktu[r["DateKey"]], produk[r["ProductKey"]]
+        ws.append([r["TransactionID"], t["Tanggal"], t["Hari"], t["LabelMinggu"], t["NamaBulan"],
+                   p["Komoditas"], p["Grade"], pembeli[r["CustomerKey"]], r["Volume"], r["Satuan"],
+                   r["HargaSatuan"], r["TotalPendapatan"], lahan[r["LahanKey"]]])
+    for row in ws.iter_rows(min_row=2):
+        row[1].number_format = "dd/mm/yyyy"
+        for c in row[10:12]:
+            c.number_format = "#,##0"
+    for letter, w in zip("ABCDEFGHIJKLM", (6, 12, 9, 11, 11, 22, 11, 34, 9, 8, 16, 14, 9)):
+        ws.column_dimensions[letter].width = w
+    ws.freeze_panes = "A2"
+    ws.auto_filter.ref = ws.dimensions
+    clean.save(CLEAN)
+
     # self-check: Excel harus identik dengan data_csv yang dipakai Power BI
     with open(os.path.join(BASE, "data_csv", "Fact_Penjualan.csv"), encoding="utf-8-sig") as fh:
         csv_rows = list(csv.DictReader(fh))
@@ -97,7 +126,10 @@ def main():
     assert abs(sum(float(r["TotalPendapatan"]) for r in csv_rows) - total) < 1 and total == 29818920
     assert {r["Satuan"] for r in csv_rows} == {r["Satuan"] for r in f} == {"Kg", "Pack", "Ikat", "Buah"}
     assert prod_rp[0][0] == "Melon Sweet Lavender" and cust[0][0] == "B Rara Surabaya"
-    print("OK", wb.sheetnames)
+    flat = list(openpyxl.load_workbook(CLEAN).active.iter_rows(min_row=2, values_only=True))
+    assert len(flat) == 549 and sum(r[11] for r in flat) == total
+    assert all(r[1].year == 2026 for r in flat), "masih ada tanggal di luar 2026"
+    print("OK", wb.sheetnames, "+", os.path.basename(CLEAN))
 
 
 if __name__ == "__main__":

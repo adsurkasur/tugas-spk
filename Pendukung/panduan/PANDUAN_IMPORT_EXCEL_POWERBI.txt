@@ -1,6 +1,6 @@
 # PANDUAN PRAKTIS 3 MENIT: IMPORT DATA WAREHOUSE & BANGUN DASHBOARD DI POWER BI DESKTOP
 # Studi Kasus: Kebun Produksi BBPP Ketindan, Lawang - Malang
-# File Sumber Data Bersih: E:\Managed Projects\tugas-spk\Data_Warehouse_BBPP_Ketindan_Cleaned.xlsx
+# File Sumber Data Bersih: E:\managed-projects-handoff\tugas-spk\SPK_Ade Surya Ananda_2646000083_3_Data Warehouse Star Schema.xlsx
 
 ================================================================================
 LANGKAH 1: BUKA POWER BI DESKTOP & IMPORT DATA (HANYA 30 DETIK)
@@ -9,7 +9,7 @@ LANGKAH 1: BUKA POWER BI DESKTOP & IMPORT DATA (HANYA 30 DETIK)
 2. Pada layar awal (Home):
    - Klik tombol "Import data from Excel" (atau menu Home > Excel workbook).
    - Arahkan ke file:
-     E:\Managed Projects\tugas-spk\Data_Warehouse_BBPP_Ketindan_Cleaned.xlsx
+     E:\managed-projects-handoff\tugas-spk\SPK_Ade Surya Ananda_2646000083_3_Data Warehouse Star Schema.xlsx
 3. Di jendela Navigator yang muncul:
    - Centang KELIMA sheet berikut:
      [✔] Dim_Lahan
@@ -85,5 +85,5 @@ Klik ikon ke-1 di panel kiri ("Report view").
 ================================================================================
 LANGKAH 5: SIMPAN SEBAGAI PBIX DAN AMBIL SCREENSHOT
 ================================================================================
-1. Klik File > Save As > Simpan sebagai `BBPP_Ketindan_DSS.pbix` di folder `E:\Managed Projects\tugas-spk\`.
+1. Klik File > Save As > Simpan sebagai `SPK_Ade Surya Ananda_2646000083_PowerBI.pbix` di folder `E:\managed-projects-handoff\tugas-spk\`.
 2. Ambil screenshot layar Power BI Anda (Win + Shift + S).

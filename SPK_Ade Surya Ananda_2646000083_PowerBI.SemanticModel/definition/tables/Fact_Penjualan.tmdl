@@ -72,7 +72,7 @@ table Fact_Penjualan
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("E:/Managed Projects/tugas-spk/data_csv/Fact_Penjualan.csv"),[Delimiter=",", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents("E:/managed-projects-handoff/tugas-spk/Pendukung/data_csv/Fact_Penjualan.csv"),[Delimiter=",", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"TransactionID", Int64.Type}, {"DateKey", Int64.Type}, {"ProductKey", type text}, {"CustomerKey", type text}, {"LahanKey", type text}, {"Volume", type number}, {"Satuan", type text}, {"HargaSatuan", type number}, {"TotalPendapatan", type number}})
 				in

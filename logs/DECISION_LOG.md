@@ -1,5 +1,12 @@
 # Decision Log
 
+## [DEC-004] Konvensi nama dan struktur root
+- **Date**: 2026-10-23 · **Status**: Accepted
+- **Context**: Nama lama (BBPP_Ketindan_DSS, Data_Warehouse_BBPP_...) tidak cocok dengan nama report yang dipublikasikan; root penuh berkas kerja.
+- **Decision**: Awalan `SPK_Ade Surya Ananda_2646000083_` + nomor urut 1–4 sesuai alur data (mentah → bersih → warehouse → presentasi) + `_PowerBI.pbip`. Bahan lain di `Pendukung/`; `logs/` tetap di root sesuai protokol AGENTS.md. Model Power BI tetap membaca CSV (path absolut) agar visual tidak berubah.
+- **Alternatives**: Mengarahkan model ke Excel data warehouse (perlu mengubah semua query M dan tidak bisa diuji tanpa Power BI Desktop).
+- **Affected**: struktur repo, PBIP, TMDL, script build, presentasi.
+
 ## [DEC-003] Deck dibangun ulang dengan pptxgenjs, angka diikat ke data
 - **Date**: 2026-10-23 · **Status**: Accepted
 - **Context**: Deck python-pptx lama berisi angka ketikan tangan yang sempat salah, kotak teks setengah kosong.

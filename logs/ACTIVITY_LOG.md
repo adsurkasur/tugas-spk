@@ -1,5 +1,11 @@
 # Activity Log
 
+## [2026-10-23 14:00] Claude Code (Opus 5.5) — Rename berkas & rapikan direktori
+- **Goal**: Root hanya berisi berkas siap lihat dengan nama konsisten mengikuti nama Power BI "SPK_Ade Surya Ananda_2646000083_PowerBI".
+- **Actions**: Root kini: 1_Buku Kasir Harian.xlsx, 2_Data Bersih.xlsx (baru, tabel datar hasil pembersihan), 3_Data Warehouse Star Schema.xlsx, 4_Presentasi.pdf, PowerBI.pbip (+ .Report/.SemanticModel); sisanya ke `Pendukung/`. PBIP di-rename (path .pbip, definition.pbir, displayName .platform). Path sumber CSV di TMDL diperbaiki (sebelumnya menunjuk `E:/Managed Projects/...` yang tidak ada). Slide 5, 6, 10 memakai nama baru; slide 10 mendaftar keempat berkas. README root ditulis ulang; HANDOFF & panduan diperbarui; script lama ke `Pendukung/scripts/_archive/`; `convert.ps1` rusak dihapus.
+- **Files**: seluruh struktur repo, `Pendukung/scripts/*`, `README.md`, `Pendukung/HANDOFF_PROMPT_AGENT.md`, `Pendukung/panduan/*`, logs.
+- **Verification**: `build_excel_submission.py` self-check lulus (549 baris, total, tahun 2026); kelima path CSV di TMDL ada; validate.py PASSED; PDF 10 halaman, URI Power BI & GitHub; slide 5, 6, 10 diperiksa visual. PBIP belum dibuka ulang di Power BI Desktop.
+
 ## [2026-10-23 12:30] Claude Code (Opus 5.5) — Deck dibangun ulang (talk-deck-builder, mode analitis)
 - **Goal**: Buat ulang presentasi 10 slide dengan judul berupa temuan, chart dari data, dan foto lapangan.
 - **Actions**: `scripts/build_deck.js` (pptxgenjs) membaca semua angka dari `data_csv/` dan memformatnya id-ID; 10 slide = judul + 8 isi + penutup ber-link; chart native KPI 1 dan KPI 3 dengan sorotan; foto observasi Oktober 2026 dari `assets/photos/`; speaker notes ringkas di tiap slide; nama pembeli perorangan bergelar disamarkan. Generator python-pptx lama dipindah ke `scripts/_archive/`.

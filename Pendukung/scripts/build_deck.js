@@ -1,4 +1,4 @@
-// Build Presentasi_DSS_BBPP_Ketindan.pptx (10 slide, mode analitis) dengan pptxgenjs.
+// Build presentasi 10 slide (mode analitis) dengan pptxgenjs ke Pendukung/presentasi/; PDF dibuat convert_pdf.ps1.
 // Semua angka dibaca dari data_csv/ (sama dengan sumber Power BI), bukan diketik.
 // Jalankan: NODE_PATH="$(npm root -g)" node scripts/build_deck.js
 const fs = require("fs");
@@ -6,8 +6,10 @@ const path = require("path");
 const pptxgen = require("pptxgenjs");
 const sharp = require("sharp");
 
-const BASE = path.resolve(__dirname, "..");
-const OUT = path.join(BASE, "Presentasi_DSS_BBPP_Ketindan.pptx");
+const BASE = path.resolve(__dirname, ".."); // Pendukung/
+const PREFIX = "SPK_Ade Surya Ananda_2646000083";
+const PBI_NAME = PREFIX + "_PowerBI";
+const OUT = path.join(BASE, "presentasi", PREFIX + "_Presentasi.pptx");
 const PHOTO = (f) => path.join(BASE, "assets", "photos", f);
 const SHOT = (f) => path.join(BASE, "assets", "screenshots", f);
 const THEME = path.join(process.env.PPTX_SKILL || "", "scripts", "apply_theme.js");
@@ -233,7 +235,7 @@ function table(s, rows, x, y, colW, o = {}) {
   // ===== 5. Star schema =====
   {
     const s = contentSlide(5, "Star schema: satu tabel fakta penjualan dikelilingi empat dimensi yang masing-masing melayani KPI", {
-      step: 4, section: "Desain data warehouse", source: "Diagram: model data Power BI (BBPP_Ketindan_DSS.SemanticModel), disusun ulang.",
+      step: 4, section: "Desain data warehouse", source: `Diagram: model data Power BI ${PBI_NAME}, disusun ulang.`,
       notes: "Desain DW (±1,5 mnt). Tabel fakta menyimpan satu baris per transaksi dengan ukuran volume dan pendapatan. Dimensi waktu melayani KPI 1 dan 2, dimensi produk KPI 3 dan 4, dimensi pelanggan KPI 5, dan dimensi lahan untuk analisis tambahan. Semua relasi satu-ke-banyak dari dimensi ke fakta.",
     });
     await fitImage(s, SHOT("star_schema_architecture.png"), M, 1.4, 7.4, 4.3, { left: 0, top: 0, width: 1280, height: 600 });
@@ -252,7 +254,7 @@ function table(s, rows, x, y, colW, o = {}) {
   // ===== 6. Dashboard =====
   {
     const s = contentSlide(6, "Dashboard Power BI menaruh angka utama di atas dan semua visual saling memfilter", {
-      step: 5, section: "Dashboard BI", source: "Tangkapan layar: dashboard Power BI BBPP_Ketindan_DSS (Power BI Desktop).",
+      step: 5, section: "Dashboard BI", source: `Tangkapan layar: dashboard Power BI ${PBI_NAME} (Power BI Desktop).`,
       notes: "Dashboard (±2 mnt). Tiga kartu KPI di atas memberi gambaran dalam sekali lihat. Di bawahnya grafik mingguan, donut per lahan, dua grafik produk, dan tabel pembeli. Slicer bulan dan klik pada visual mana pun memfilter semua visual lain, misalnya klik Minggu-36 untuk melihat produk dan pembeli minggu itu.",
     });
     const r = await fitImage(s, SHOT("powerbi_dashboard_overview.png"), M, 1.4, 8.3, 5.2, { left: 0, top: 10, width: 932, height: 474 });
@@ -363,16 +365,19 @@ function table(s, rows, x, y, colW, o = {}) {
       text(s, [{ text: h, options: { bold: true, fontSize: 19, breakLine: true } }, { text: d, options: { fontSize: 15, color: "DDEBE2" } }], M + 0.85, y - 0.05, 6.3, 1.2, { color: C.white });
     }
     const bx = 8.0, bw = W - M - bx;
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: bx, y: 1.5, w: bw, h: 4.2, fill: { color: C.white }, line: { type: "none" }, rectRadius: 0.08 });
-    text(s, "Dashboard interaktif (Power BI)", bx + 0.3, 1.7, bw - 0.6, 0.4, { fontSize: 17, bold: true, color: C.dark });
-    text(s, [{ text: DASHBOARD_URL, options: { hyperlink: { url: DASHBOARD_URL }, color: "0B5CAD", underline: true } }], bx + 0.3, 2.15, bw - 0.6, 0.95, { fontSize: 12 });
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: bx + 0.3, y: 2.95, w: 2.2, h: 0.5, fill: { color: C.warm }, line: { type: "none" }, rectRadius: 0.08, hyperlink: { url: DASHBOARD_URL } });
-    text(s, [{ text: "Buka dashboard", options: { hyperlink: { url: DASHBOARD_URL }, color: C.white, bold: true } }], bx + 0.3, 2.95, 2.2, 0.5, { fontSize: 15, align: "center", valign: "middle" });
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: bx, y: 1.5, w: bw, h: 5.0, fill: { color: C.white }, line: { type: "none" }, rectRadius: 0.08 });
+    text(s, [{ text: "Dashboard interaktif (Power BI)", options: { breakLine: true } }, { text: PBI_NAME, options: { fontSize: 12, bold: false, color: C.muted } }], bx + 0.3, 1.65, bw - 0.6, 0.6, { fontSize: 17, bold: true, color: C.dark });
+    text(s, [{ text: DASHBOARD_URL, options: { hyperlink: { url: DASHBOARD_URL }, color: "0B5CAD", underline: true } }], bx + 0.3, 2.35, bw - 0.6, 0.75, { fontSize: 12 });
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: bx + 0.3, y: 3.1, w: 2.2, h: 0.5, fill: { color: C.warm }, line: { type: "none" }, rectRadius: 0.08, hyperlink: { url: DASHBOARD_URL } });
+    text(s, [{ text: "Buka dashboard", options: { hyperlink: { url: DASHBOARD_URL }, color: C.white, bold: true } }], bx + 0.3, 3.1, 2.2, 0.5, { fontSize: 15, align: "center", valign: "middle" });
     text(s, [{ text: "Berkas pendukung", options: { bold: true, color: C.dark, breakLine: true } },
-      { text: "Data_Warehouse_BBPP_Ketindan_Cleaned.xlsx (data mentah, star schema, ringkasan KPI)", options: { breakLine: true } },
-      { text: "BBPP_Ketindan_DSS.pbip (proyek Power BI)", options: { breakLine: true } },
+      { text: `awalan nama: ${PREFIX}_`, options: { italic: true, color: C.muted, fontSize: 12, breakLine: true } },
+      { text: "1_Buku Kasir Harian.xlsx (data mentah)", options: { breakLine: true } },
+      { text: "2_Data Bersih.xlsx", options: { breakLine: true } },
+      { text: "3_Data Warehouse Star Schema.xlsx (+ ringkasan KPI)", options: { breakLine: true } },
+      { text: "PowerBI.pbip (proyek Power BI)", options: { breakLine: true } },
       { text: REPO_URL, options: { hyperlink: { url: REPO_URL }, color: "0B5CAD", underline: true } }],
-      bx + 0.3, 3.7, bw - 0.6, 2.0, { fontSize: 13, color: C.text, paraSpaceAfter: 4 });
+      bx + 0.3, 3.8, bw - 0.6, 2.6, { fontSize: 13, color: C.text, paraSpaceAfter: 4 });
     text(s, "Ade Surya Ananda · NIM 2646000083 · Sistem Penunjang Keputusan", M, 6.95, 8, 0.35, { fontSize: 12, color: "A9C2B4" });
     s.addNotes("Penutup (±1 mnt). Ringkasnya: buku kasir sudah menjadi data warehouse, lima KPI menjawab kapan, apa, dan siapa, dan dashboard ini bisa langsung dipakai pengelola untuk evaluasi mingguan. Tautan dashboard interaktif ada di kanan.");
   }

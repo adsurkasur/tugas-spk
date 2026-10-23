@@ -118,5 +118,5 @@ Sebagai Sistem Penunjang Keputusan (DSS), dashboard ini merekomendasikan:
   - *URL Dashboard*: `https://app.powerbi.com/links/76fma9KOTC?ctid=8b603e04-2c81-4b3c-a54e-b1211ffbceed&pbi_source=linkShare`
   - *(Tautan Share Power BI Service, akun trial; penerima perlu login akun organisasi)*.
 - **Lampiran Berkas**:
-  - File Excel Bersih Star Schema: `Data_Warehouse_BBPP_Ketindan_Cleaned.xlsx`
-  - Proyek Power BI: `BBPP_Ketindan_DSS.pbip`
+  - File Excel Bersih Star Schema: `SPK_Ade Surya Ananda_2646000083_3_Data Warehouse Star Schema.xlsx`
+  - Proyek Power BI: `SPK_Ade Surya Ananda_2646000083_PowerBI.pbip`

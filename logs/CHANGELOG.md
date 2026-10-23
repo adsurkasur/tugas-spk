@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.0] - 2026-10-23
+### Added
+- `…_2_Data Bersih.xlsx` (tabel datar hasil pembersihan); README root baru.
+### Changed
+- Semua berkas utama di-rename dengan awalan `SPK_Ade Surya Ananda_2646000083_`; bahan pendukung dipindah ke `Pendukung/`.
+- Referensi nama di slide 5, 6, 10 diperbarui.
+### Fixed
+- Path sumber CSV model Power BI menunjuk lokasi repo yang benar.
+
 ## [1.2.0] - 2026-10-23
 ### Changed
 - Presentasi dibangun ulang (mode analitis): judul berupa temuan, chart KPI dari data, foto lapangan, speaker notes, tombol tautan dashboard.

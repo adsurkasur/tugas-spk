@@ -15,7 +15,7 @@ table Dim_Lahan
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("E:/Managed Projects/tugas-spk/data_csv/Dim_Lahan.csv"),[Delimiter=",", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents("E:/managed-projects-handoff/tugas-spk/Pendukung/data_csv/Dim_Lahan.csv"),[Delimiter=",", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"LahanKey", type text}, {"KodeLahan", type text}})
 				in
